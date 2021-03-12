@@ -38,7 +38,9 @@ try {
 
   const packageNames = getPackageNames()
 
-  let packageName = readline.question('Name of package to release: ')
+  let packageName = readline.question(
+    `Name of package to release (choose from ${packageNames.join(' or ')}): `
+  )
 
   while (!packageNames.includes(packageName)) {
     packageName = readline.question(
