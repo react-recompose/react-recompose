@@ -70,6 +70,10 @@ try {
     )
   }
 
+  if (!nextVersion) {
+    nextVersion = version
+  }
+
   log('Running tests...')
 
   if (exec('yarn run lint && yarn test').code !== 0) {
