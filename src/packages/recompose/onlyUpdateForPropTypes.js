@@ -4,7 +4,7 @@ import wrapDisplayName from './wrapDisplayName'
 import getDisplayName from './getDisplayName'
 
 const onlyUpdateForPropTypes = BaseComponent => {
-  const propTypes = BaseComponent.propTypes
+  const { propTypes } = BaseComponent
 
   if (process.env.NODE_ENV !== 'production') {
     if (!propTypes) {
