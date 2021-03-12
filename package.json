@@ -52,7 +52,7 @@
     "codecov": "^1.0.1",
     "create-react-class": "^15.5.0",
     "cross-env": "^4.0.0",
-    "enzyme": "^3.3.0",
+    "enzyme": "^3.11.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
