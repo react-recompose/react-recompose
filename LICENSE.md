@@ -1,5 +1,6 @@
 The MIT License (MIT)
 
+Copyright 2021-present Christoher J. Brody
 Copyright (c) 2015-2018 Andrew Clark
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
