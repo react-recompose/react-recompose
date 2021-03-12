@@ -1,10 +1,9 @@
 {
   "name": "recompose-build",
   "private": true,
-  "author": "Andrew Clark <acdlite@me.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/acdlite/recompose.git"
+    "url": "https://github.com/brodybits/react-recompose.git"
   },
   "license": "MIT",
   "scripts": {

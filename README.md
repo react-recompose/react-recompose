@@ -1,3 +1,8 @@
+# react-recompose
+
+an updated fork of [Recompose](https://github.com/acdlite/recompose)
+
+<!-- ORIGINAL CONTENT HIDDEN:
 ## A Note from the Author (acdlite, Oct 25 2018):
 
 Hi! I created Recompose about three years ago. About a year after that, I joined the React team. Today, we announced a proposal for [*Hooks*](https://reactjs.org/hooks). Hooks solves all the problems I attempted to address with Recompose three years ago, and more on top of that. I will be discontinuing active maintenance of this package (excluding perhaps bugfixes or patches for compatibility with future React releases), and recommending that people use Hooks instead. **Your existing code with Recompose will still work**, just don't expect any new features. Thank you so, so much to [@wuct](https://github.com/wuct) and [@istarkov](https://github.com/istarkov) for their heroic work maintaining Recompose over the last few years.
@@ -14,19 +19,34 @@ Recompose
 [![code climate](https://img.shields.io/codeclimate/github/acdlite/recompose.svg?style=flat-square)](https://codeclimate.com/github/acdlite/recompose)
 [![npm version](https://img.shields.io/npm/v/recompose.svg?style=flat-square)](https://www.npmjs.com/package/recompose)
 [![npm downloads](https://img.shields.io/npm/dm/recompose.svg?style=flat-square)](https://www.npmjs.com/package/recompose)
+- -->
 
 Recompose is a React utility belt for function components and higher-order components. Think of it like lodash for React.
 
 [**Full API documentation**](docs/API.md) - Learn about each helper
 
+### Try Recompose
+
+in an outdated version:
+
 [**Recompose Base Fiddle**](https://jsfiddle.net/evenchange4/p3vsmrvo/1599/) - Easy way to dive in
 
+<!-- ORIGINAL CONTENT HIDDEN:
 ```
 npm install recompose --save
 ```
+- -->
+
+### Talk on YouTube
 
 **📺 Watch Andrew's [talk on Recompose at React Europe](https://www.youtube.com/watch?v=zD_judE-bXk).**
 *(Note: Performance optimizations he speaks about have been removed, more info [here](https://github.com/acdlite/recompose/releases/tag/v0.26.0))*
+
+### Installation
+
+It is **highly** recommended to use Yarn to install this fork as an alias, for example:
+
+    yarn add recompose@npm:react-recompose
 
 ### Related modules
 
