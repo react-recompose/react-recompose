@@ -20,6 +20,7 @@
   "jest": {
     "testMatch": [
       "<rootDir>/lib/packages/recompose/dist/__tests__/*-test.js",
+      "<rootDir>/lib/packages/recompose/__tests__/*-test.js",
       "<rootDir>/src/**/__tests__/**/*-test.js"
     ],
     "coverageReporters": [
