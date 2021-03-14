@@ -1,12 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-# based on: https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
+# based on:
+# - .github/workflows/ci-test-node.js.yml
+# - https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
 
 name: test with React 16
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, test-* ]
   pull_request:
     branches: [ main ]
 
