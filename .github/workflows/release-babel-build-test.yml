@@ -1,0 +1,46 @@
+# based on:
+# - .github/workflows/dist-build-test.yml
+# - .github/workflows/ci-test-node.js.yml
+# - https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
+
+name: release Babel build test
+
+# runs the tests on the output of the Babel transformation that is
+# part of the release build
+
+# FUTURE TODO refactor some of the steps into script(s) that
+# can be called from either scripts/release.js or GitHub CI.
+
+on:
+  push:
+    branches: [ main, test-* ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn
+    - name: Babel release build
+      run: |
+        mkdir -p lib/packages/recompose
+        npx cross-env NODE_ENV=cjs babel ./src/packages/recompose --out-dir ./lib/packages/recompose --ignore="**/__tests__/**,**/node_modules/**"
+    - name: add (--dev) required dependencies
+      # FUTURE TODO should install dependencies as specified src/packages/recompose/package.json
+      run: yarn add --dev @babel/runtime change-emitter hoist-non-react-statics react-lifecycles-compat
+    - name: copy __tests__ from src/packages/recompose
+      run: cp -r src/packages/recompose/__tests__ lib/packages/recompose
+    - run: yarn jest lib/packages/recompose
