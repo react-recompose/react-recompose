@@ -19,12 +19,14 @@
   },
   "jest": {
     "testMatch": [
+      "<rootDir>/lib/packages/recompose/dist/__tests__/*-test.js",
       "<rootDir>/src/**/__tests__/**/*-test.js"
     ],
     "coverageReporters": [
       "text-summary",
       "lcov"
     ],
+    "transformIgnorePatterns": [],
     "setupTestFrameworkScriptFile": "<rootDir>/scripts/jest.setup.js"
   },
   "lint-staged": {
