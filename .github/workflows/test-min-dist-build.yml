@@ -56,6 +56,6 @@ jobs:
     - run: rm lib/packages/recompose/dist/__tests__/withProps-test.js
     - run: rm lib/packages/recompose/dist/__tests__/flattenProp-test.js
     - run: rm lib/packages/recompose/dist/__tests__/nest-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/toRenderProps
+    - run: rm lib/packages/recompose/dist/__tests__/toRenderProps-test.js
     - run: cp lib/packages/recompose/dist/Recompose.min.js lib/packages/recompose/dist/index.js
     - run: yarn jest lib/packages/recompose/dist
