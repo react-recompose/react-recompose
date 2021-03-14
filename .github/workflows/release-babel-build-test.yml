@@ -5,6 +5,9 @@
 
 name: release Babel build test
 
+# runs the tests on the output of the Babel transformation that is
+# part of the release build
+
 # FUTURE TODO refactor some of the steps into script(s) that
 # can be called from either scripts/release.js or GitHub CI.
 
