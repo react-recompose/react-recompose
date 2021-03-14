@@ -127,6 +127,12 @@ try {
   log('Copying CHANGELOG...')
   cp('-f', 'CHANGELOG.md', outDir)
 
+  // need to overwrite README.md with README.md from root of this fork:
+  if (packageName.endsWith('recompose')) {
+    log('Copying README.md from root')
+    cp('-f', 'README.md', outDir)
+  }
+
   log(`Building ${packageName}...`)
   const runRollup = () => `yarn build:${packageName}`
   if (exec(runRollup()).code !== 0) {
