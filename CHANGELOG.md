@@ -16,3 +16,12 @@ based on: recompose v0.30.0
 - sort recompose-relay peerDependencies
 - remove lodash from recompose-relay (not needed)
 - docs: add licenses of dependencies bundled in dist
+- post-v0.30.0 updates from master branch of https://github.com/acdlite/recompose
+  - remove fbjs from recompose dependencies
+    - PR: https://github.com/acdlite/recompose/pull/744
+    - issue: https://github.com/acdlite/recompose/issues/742
+  - enable flow strict in index.js.flow
+    - PR: https://github.com/acdlite/recompose/pull/745
+  - documentation updates from these PRs:
+    - https://github.com/acdlite/recompose/pull/765
+    - https://github.com/acdlite/recompose/pull/746
