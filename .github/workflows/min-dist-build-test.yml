@@ -39,30 +39,31 @@ jobs:
         cp src/packages/recompose/*.js lib/packages/recompose/dist
         cp -r src/packages/recompose/utils lib/packages/recompose/dist
         cp -r src/packages/recompose/__tests__ lib/packages/recompose/dist
-    - run: echo "removing some tests not working with Recompose.min.js" # TBD (TODO) find a better solution
-    - run: rm lib/packages/recompose/dist/__tests__/withHandlers-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/mapPropsStream-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/withStateHandlers-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/withState-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/pure-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/mapPropsStreamWithConfig-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/onlyUpdateForPropTypes-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/withReducer-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/withPropsOnChange-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/branch-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/shouldUpdate-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/lifecycle-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/onlyUpdateForKeys-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/renameProps-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/withContext-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/fromRenderProps-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/defaultProps-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/mapProps-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/renderNothing-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/renameProp-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/withProps-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/flattenProp-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/nest-test.js
-    - run: rm lib/packages/recompose/dist/__tests__/toRenderProps-test.js
+    - name: remove tests not working with Recompose.min.js # TBD (TODO) find a better solution
+      run: |
+        rm lib/packages/recompose/dist/__tests__/withHandlers-test.js
+        rm lib/packages/recompose/dist/__tests__/mapPropsStream-test.js
+        rm lib/packages/recompose/dist/__tests__/withStateHandlers-test.js
+        rm lib/packages/recompose/dist/__tests__/withState-test.js
+        rm lib/packages/recompose/dist/__tests__/pure-test.js
+        rm lib/packages/recompose/dist/__tests__/mapPropsStreamWithConfig-test.js
+        rm lib/packages/recompose/dist/__tests__/onlyUpdateForPropTypes-test.js
+        rm lib/packages/recompose/dist/__tests__/withReducer-test.js
+        rm lib/packages/recompose/dist/__tests__/withPropsOnChange-test.js
+        rm lib/packages/recompose/dist/__tests__/branch-test.js
+        rm lib/packages/recompose/dist/__tests__/shouldUpdate-test.js
+        rm lib/packages/recompose/dist/__tests__/lifecycle-test.js
+        rm lib/packages/recompose/dist/__tests__/onlyUpdateForKeys-test.js
+        rm lib/packages/recompose/dist/__tests__/renameProps-test.js
+        rm lib/packages/recompose/dist/__tests__/withContext-test.js
+        rm lib/packages/recompose/dist/__tests__/fromRenderProps-test.js
+        rm lib/packages/recompose/dist/__tests__/defaultProps-test.js
+        rm lib/packages/recompose/dist/__tests__/mapProps-test.js
+        rm lib/packages/recompose/dist/__tests__/renderNothing-test.js
+        rm lib/packages/recompose/dist/__tests__/renameProp-test.js
+        rm lib/packages/recompose/dist/__tests__/withProps-test.js
+        rm lib/packages/recompose/dist/__tests__/flattenProp-test.js
+        rm lib/packages/recompose/dist/__tests__/nest-test.js
+        rm lib/packages/recompose/dist/__tests__/toRenderProps-test.js
     - run: cp lib/packages/recompose/dist/Recompose.min.js lib/packages/recompose/dist/index.js
     - run: yarn jest lib/packages/recompose/dist
