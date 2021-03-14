@@ -1,12 +1,15 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-# based on: https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
+# based on:
+# - .github/workflows/ci-test-node.js.yml
+# - https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
 
 name: test min dist build
 
+# FUTURE TBD move some of the steps into a script that can be run
+# from either the command line or from GitHub CI.
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main, test-* ]
   pull_request:
     branches: [ main ]
 
@@ -17,8 +20,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,10 +31,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn
     - run: yarn build:recompose
-    - run: yarn add --dev @babel/runtime change-emitter hoist-non-react-statics react-lifecycles-compat
-    - run: cp src/packages/recompose/*.js lib/packages/recompose/dist
-    - run: cp -r src/packages/recompose/utils lib/packages/recompose/dist
-    - run: cp -r src/packages/recompose/__tests__ lib/packages/recompose/dist
+    - name: add (--dev) required dependencies
+      # FUTURE TODO should install dependencies as specified src/packages/recompose/package.json
+      run: yarn add --dev @babel/runtime change-emitter hoist-non-react-statics react-lifecycles-compat
+    - name: js files needed for some tests # FUTURE TODO only copy js files **actually** needed here
+      run: |
+        cp src/packages/recompose/*.js lib/packages/recompose/dist
+        cp -r src/packages/recompose/utils lib/packages/recompose/dist
+        cp -r src/packages/recompose/__tests__ lib/packages/recompose/dist
     - run: echo "removing some tests not working with Recompose.min.js" # TBD (TODO) find a better solution
     - run: rm lib/packages/recompose/dist/__tests__/withHandlers-test.js
     - run: rm lib/packages/recompose/dist/__tests__/mapPropsStream-test.js
