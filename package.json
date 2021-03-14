@@ -25,6 +25,7 @@
       "text-summary",
       "lcov"
     ],
+    "transformIgnorePatterns": [],
     "setupTestFrameworkScriptFile": "<rootDir>/scripts/jest.setup.js"
   },
   "lint-staged": {
