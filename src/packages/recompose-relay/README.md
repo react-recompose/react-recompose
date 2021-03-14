@@ -1,3 +1,7 @@
+## STATUS
+
+NOT SUPPORTED in this fork
+
 recompose-relay
 ===============
 
