@@ -24,6 +24,8 @@ jobs:
         - Recompose.cjs.js
         - Recompose.esm.js
         - Recompose.umd.js
+        # dist build test of Recompose.min.js is separated into min-dist-build-test.yml
+        # due to the number of tests not working with Recompose.min.js
 
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         node-version: [14.x]
