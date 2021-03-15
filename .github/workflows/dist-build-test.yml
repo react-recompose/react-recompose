@@ -8,10 +8,8 @@ name: dist build test
 # can be run from either the command line or GitHub CI.
 
 on:
-  push:
-    branches: [ main, test-* ]
-  pull_request:
-    branches: [ main ]
+  - push
+  - pull_request
 
 jobs:
   build:

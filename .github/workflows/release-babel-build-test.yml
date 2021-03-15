@@ -12,10 +12,8 @@ name: release Babel build test
 # can be called from either scripts/release.js or GitHub CI.
 
 on:
-  push:
-    branches: [ main, test-* ]
-  pull_request:
-    branches: [ main ]
+  - push
+  - pull_request
 
 jobs:
   build:
