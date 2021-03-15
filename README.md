@@ -1,5 +1,8 @@
 # react-recompose
 
+[![LICENSE](https://img.shields.io/npm/l/react-recompose?style=flat-square)](LICENSE.md)
+[![npm:react-recompose](https://img.shields.io/npm/v/react-recompose?style=flat-square)](https://www.npmjs.com/package/react-recompose)
+
 an updated fork of [Recompose](https://github.com/acdlite/recompose)
 
 <!-- ORIGINAL CONTENT HIDDEN:
