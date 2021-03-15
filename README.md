@@ -224,7 +224,17 @@ Recompose focuses on another unit of composition: **higher-order components** (H
 
 Recompose provides a toolkit of helper functions for creating higher-order components.
 
-## [Should I use this? Performance and other concerns](docs/performance.md)
+## Should I use this?
+
+[Performance and other concerns](docs/performance.md)
+
+
+[Use a Render Prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) [Michael Jackson](https://twitter.com/mjackson) article about what's wrong with HOCs.
+
+see also:
+
+- [`acdlite/recompose#531`](https://github.com/acdlite/recompose/pull/531) - PR with some discussion
+- [`acdlite/recompose#756`](https://github.com/acdlite/recompose/issues/756) - big disucssion of hooks API versus this library
 
 ## Usage
 
