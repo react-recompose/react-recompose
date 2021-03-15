@@ -1,3 +1,20 @@
+## react-recompose v0.31.1
+
+- build: update devDependencies, yarn.lock & size snapshot
+  - updates and modernizes many devDependencies, as originally proposed in:
+    - https://github.com/acdlite/recompose/pull/826
+  - completely removes dev dependency on fbjs from yarn.lock ref:
+    - https://github.com/acdlite/recompose/issues/825
+  - should resolve other reported vulnerability warnings from dev dependencies ref:
+    - https://github.com/acdlite/recompose/issues/817
+  - resolves a large number of other Yarn dev audit warnings
+- Clarify API docs about Relay classic
+  - PR: https://github.com/acdlite/recompose/pull/753
+  - issue: https://github.com/acdlite/recompose/issues/743
+- Add links to HOC criticism
+  - original source: https://github.com/acdlite/recompose/pull/531
+- include the correct README.md for react-recompose in the npm package build
+
 ## react-recompose v0.31.0
 
 based on: recompose v0.30.0
