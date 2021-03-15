@@ -2,8 +2,6 @@
   "extends": [
     "eslint-config-airbnb",
     "prettier",
-    "prettier/flowtype",
-    "prettier/react"
   ],
   "plugins": [
     "prettier"
@@ -35,6 +33,8 @@
     "import/prefer-default-export": [0],
     "import/no-useless-path-segments": [0],
     "jsx-a11y/label-has-for": [0],
+    "jsx-a11y/label-has-associated-control": [0],
+    "react/default-props-match-prop-types": [0],
     "react/forbid-prop-types": [0],
     "react/prop-types": [0],
     "react/prefer-stateless-function": [0],
