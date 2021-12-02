@@ -2,7 +2,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 # based on: https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
 
-name: CI test - Node.js
+name: CI test with quick workaround - Node.js 17(+)
 
 on:
   - push
@@ -15,17 +15,8 @@ jobs:
 
     strategy:
       matrix:
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         node-version:
-        - 10.x
-        - 12.x
-        - 14.x
-        - 15.x
-        - 16.x
-        # Test on Node.js 17(+) is moved to a separate workflow with a quick workaround ref:
-        # - https://github.com/react-recompose/react-recompose/issues/13
-        # - https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported/69699772#69699772
-        # - https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
+        - 17.x
 
     steps:
     - uses: actions/checkout@v2
@@ -34,4 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - run: npm test
+    # using cross-env NODE_OPTIONS=--openssl-legacy-provider as a quick &
+    # hopefully temporary workaround for build issue from Node.js 17 ref:
+    # - https://github.com/react-recompose/react-recompose/issues/13
+    # - https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported/69699772#69699772
+    # - https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
+    - run: npx cross-env NODE_OPTIONS=--openssl-legacy-provider npm test
