@@ -79,7 +79,7 @@
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-size-snapshot": "^0.6.1",
+    "rollup-plugin-size-snapshot": "npm:@brodybits/rollup-plugin-size-snapshot",
     "rollup-plugin-uglify": "^4.0.0",
     "rx": "^4.1.0",
     "rxjs": "^5.5.12",
