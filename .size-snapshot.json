@@ -22,5 +22,15 @@
         "code": 1838
       }
     }
+  },
+  "Recompose.umd.js": {
+    "bundled": 46233,
+    "minified": 16362,
+    "gzipped": 4649
+  },
+  "Recompose.min.js": {
+    "bundled": 42671,
+    "minified": 15094,
+    "gzipped": 4213
   }
 }
