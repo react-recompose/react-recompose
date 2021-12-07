@@ -1,9 +1,8 @@
 import { createElement } from 'react'
-import omit from './utils/omit'
 
 const componentFromProp = propName => {
-  const Component = props =>
-    createElement(props[propName], omit(props, [propName]))
+  const Component = ({ [propName]: elementType, forwardedRef, ...props }) =>
+    createElement(elementType, { ...props, ref: forwardedRef })
   Component.displayName = `componentFromProp(${propName})`
   return Component
 }
