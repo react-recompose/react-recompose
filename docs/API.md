@@ -769,7 +769,7 @@ Creates a component that renders nothing (null) but calls a callback when receiv
 componentFromProp(propName: string): ReactFunctionalComponent
 ```
 
-Creates a component that accepts a component as a prop and renders it with the remaining props.
+Creates a component that accepts a component as a prop and renders it with the remaining props. To specify a `ref` for the component, provided it as a prop named `forwardedRef`.
 
 Example:
 
