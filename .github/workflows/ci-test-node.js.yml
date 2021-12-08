@@ -22,10 +22,7 @@ jobs:
         - 14.x
         - 15.x
         - 16.x
-        # Test on Node.js 17(+) is moved to a separate workflow with a quick workaround ref:
-        # - https://github.com/react-recompose/react-recompose/issues/13
-        # - https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported/69699772#69699772
-        # - https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
+        - 17.x
 
     steps:
     - uses: actions/checkout@v2
