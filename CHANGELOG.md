@@ -1,3 +1,11 @@
+## react-recompose v0.31.2
+
+- fix: update dependencies
+  - @babel/runtime -> ^7.16.3
+  - hoist-non-react-statics -> ^2.5.5
+  - react-lifecycles-compat -> ^3.0.4
+  - symbol-observable -> ^1.2.0
+
 ## react-recompose v0.31.1
 
 - build: update devDependencies, yarn.lock & size snapshot
