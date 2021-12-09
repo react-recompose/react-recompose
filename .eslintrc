@@ -41,6 +41,7 @@
     "react/no-multi-comp": [0],
     "react/sort-comp": [0],
     "react/jsx-filename-extension": [0],
+    "react/no-this-in-sfc": [0],
     "prettier/prettier": ["error", {"semi": false, "trailingComma": "es5", "singleQuote": true}],
     "react/destructuring-assignment": [0],
     "react/jsx-curly-brace-presence": [0],
