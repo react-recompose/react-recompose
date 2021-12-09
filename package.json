@@ -19,7 +19,7 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "testRunner": "jest-jasmine2",
+    "testTimeout": 20000,
     "testMatch": [
       "<rootDir>/lib/packages/recompose/dist/__tests__/*-test.js",
       "<rootDir>/lib/packages/recompose/__tests__/*-test.js",
