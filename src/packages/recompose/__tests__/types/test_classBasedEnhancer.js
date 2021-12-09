@@ -17,7 +17,7 @@ function fetcher<Response: {}, Base: {}>(
           .then((data: Response) => this.setState({ data }))
       }
       render() {
-        // $FlowFixMe (...)
+        // $FlowFixMe[cannot-spread-inexact] - TBD expected error here?
         return <BaseComponent {...this.props} {...this.state} />
       }
     }

@@ -8,7 +8,7 @@ const enhance: HOC<*, {| +x: number |}> = compose(
   withProps(props => ({
     y: props.x + 1,
   })),
-  // $FlowFixMe (...)
+  // $FlowFixMe[incompatible-use] - TBD expected error here?
   withHandlers({
     sayHello: ({ y }) => () => {
       console.log('Hello', y)

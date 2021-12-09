@@ -13,7 +13,7 @@ type EnhancedCompProps = {
 }
 
 const enhancer: HOC<*, EnhancedCompProps> = compose(
-  // $FlowFixMe (...)
+  // $FlowFixMe[incompatible-use]
   withHandlers({
     onValueChange: props => value => {
       props.onChange(value)
@@ -39,7 +39,7 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
 
 // check that factory init works as expected
 const enhancer2: HOC<*, EnhancedCompProps> = compose(
-  // $FlowFixMe (...)
+  // $FlowFixMe[incompatible-use]
   withHandlers(() => ({
     onValueChange: props => value => {
       props.onChange(value)
