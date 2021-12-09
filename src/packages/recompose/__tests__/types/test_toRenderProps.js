@@ -8,6 +8,7 @@ const enhance: HOC<*, {| +x: number |}> = compose(
   withProps(props => ({
     y: props.x + 1,
   })),
+  // $FlowFixMe (...)
   withHandlers({
     sayHello: ({ y }) => () => {
       console.log('Hello', y)
@@ -26,7 +27,7 @@ const Comp = () =>
   </WithProps>
 
 const Comp2 = () =>
-  // $ExpectError
+  // $FlowExpectedError (...)
   <WithProps x={'1'}>
     {({ y, sayHello }) =>
       <div onClick={() => sayHello()}>
@@ -34,7 +35,7 @@ const Comp2 = () =>
       </div>}
   </WithProps>
 
-// $ExpectError cannot create `WithProps` element because property `children` is missing in props
+// $FlowExpectedError (...) - cannot create `WithProps` element because property `children` is missing in props
 const Comp3 = () => <WithProps x={1} />
 
 const Comp4 = () =>
@@ -44,14 +45,14 @@ const Comp4 = () =>
         onClick={() => {
           ;(sayHello: () => void)
 
-          // $ExpectError
+          // $FlowExpectedError (...)
           ;(sayHello: number)
           sayHello()
         }}
       >
         {(y: number)}
         {
-          // $ExpectError
+          // $FlowExpectedError (...)
           (y: string)
         }
       </div>}

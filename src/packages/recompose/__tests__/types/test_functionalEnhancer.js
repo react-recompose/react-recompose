@@ -17,14 +17,14 @@ const baseComponent = ({ hello, len }) =>
     {(hello: string)}
 
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (hello: number)
     }
 
     {(len: number)}
 
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (len: string)
     }
   </div>
@@ -36,7 +36,7 @@ const enhancer: HOC<*, EnhancedProps> = compose(
   })),
   withProps(props => ({
     helloAndLen: `${props.hello} ${props.len}`,
-    // $ExpectError
+    // $FlowExpectedError (...)
     lE: (props.len: string),
   }))
 )

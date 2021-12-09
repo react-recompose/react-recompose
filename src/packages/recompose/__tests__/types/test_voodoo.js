@@ -23,11 +23,11 @@ const Comp = ({ eA, objPropA }) =>
     {(eA: number)}
     {(objPropA: string)}
     {
-      // $ExpectError eA nor any nor string
+      // $FlowExpectedError (...) - eA nor any nor string
       (eA: string)
     }
     {
-      // $ExpectError eA nor any nor string
+      // $FlowExpectedError (...) - eA nor any nor string
       (objPropA: number)
     }
   </div>
@@ -48,7 +48,7 @@ const flattenEnhacer: HOC<*, EnhancedCompProps> = compose(
   >),
   withProps(props => ({
     eA: (props.eA: number),
-    // $ExpectError
+    // $FlowExpectedError (...)
     eB: (props.eA: string),
   }))
 )
@@ -66,11 +66,11 @@ const RenameComp = ({ eA, objNew, obj }) =>
       (objNew.objPropA: string)
     }
     {
-      // $ExpectError eA nor any nor string
+      // $FlowExpectedError (...) - eA nor any nor string
       (eA: string)
     }
     {
-      // $ExpectError eA nor any nor string
+      // $FlowExpectedError (...) - eA nor any nor string
       (objNew.objPropA: number)
     }
     {
@@ -78,7 +78,7 @@ const RenameComp = ({ eA, objNew, obj }) =>
       (obj: null)
     }
     {
-      // $ExpectError eA nor any nor string
+      // $FlowExpectedError (...) - eA nor any nor string
       (obj: string)
     }
   </div>
@@ -95,7 +95,7 @@ const renameEnhacer: HOC<*, EnhancedCompProps> = compose(
   >),
   withProps(props => ({
     eA: (props.eA: number),
-    // $ExpectError
+    // $FlowExpectedError (...)
     eB: (props.eA: string),
   }))
 )
@@ -115,7 +115,7 @@ const renamePropsEnhacer: HOC<*, EnhancedCompProps> = compose(
   >),
   withProps(props => ({
     eA: (props.eA: number),
-    // $ExpectError
+    // $FlowExpectedError (...)
     eB: (props.eA: string),
   }))
 )
@@ -131,7 +131,7 @@ const withStateEnhancer: HOC<*, EnhancedCompProps> = compose(
   >),
   withProps(props => ({
     eA: (props.eA: number),
-    // $ExpectError
+    // $FlowExpectedError (...)
     eB: (props.eA: string),
   }))
 )
