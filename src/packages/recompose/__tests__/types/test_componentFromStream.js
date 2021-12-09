@@ -2,10 +2,10 @@
 import React from 'react'
 import { componentFromStream } from '../..'
 
-// $ExpectError
+// $FlowExpectedError (...)
 componentFromStream(1)
 
-// $ExpectError
+// $FlowExpectedError (...)
 const result1: number = componentFromStream(() => React.createElement('div'))
 
 componentFromStream(a => a)

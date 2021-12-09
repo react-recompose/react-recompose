@@ -17,6 +17,7 @@ function fetcher<Response: {}, Base: {}>(
           .then((data: Response) => this.setState({ data }))
       }
       render() {
+        // $FlowFixMe (...)
         return <BaseComponent {...this.props} {...this.state} />
       }
     }
@@ -35,7 +36,7 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
     if (data !== undefined) {
       return {
         h: (data.hello: string),
-        // $ExpectError
+        // $FlowExpectedError (...)
         hE: (data.hello: number),
       }
     }

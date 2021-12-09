@@ -17,15 +17,15 @@ const Comp = ({ i18n, theme, data }) =>
     {theme}
     {data}
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (i18n: number)
     }
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (theme: number)
     }
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (data: number)
     }
   </div>
@@ -33,14 +33,14 @@ const Comp = ({ i18n, theme, data }) =>
 const enhancer: HOC<*, EnhancedCompProps> = compose(
   fromRenderProps(RenderPropsComponent1, props => ({
     theme: props.theme,
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: props.iMNotExists,
   })),
   fromRenderProps(
     RenderPropsComponent2,
     props => ({
       i18n: props.i18n,
-      // $ExpectError property not found
+      // $FlowExpectedError (...) - property not found
       err: props.iMNotExists,
     }),
     'render'
@@ -48,7 +48,7 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
   fromRenderProps(RenderPropsComponent3, (props, data) => ({
     theme: props.theme,
     data: data.data,
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: data.iMNotExists,
   }))
 )
