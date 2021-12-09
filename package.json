@@ -18,6 +18,8 @@
     "prepush": "yarn test"
   },
   "jest": {
+    "testEnvironment": "jsdom",
+    "testRunner": "jest-jasmine2",
     "testMatch": [
       "<rootDir>/lib/packages/recompose/dist/__tests__/*-test.js",
       "<rootDir>/lib/packages/recompose/__tests__/*-test.js",
