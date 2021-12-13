@@ -3088,10 +3088,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
-flow-bin@^0.166.1:
-  version "0.166.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.166.1.tgz#b8f02247c4134aa41cba97aa8b281cae3448c895"
-  integrity sha512-x0T0sM+rfr4scmVkBY++j2SfqzE8KwkeFmu6+WRe2qOT+TCf2Ze1gx2R/uwXBRL9S8TpPPogXiyW6urVyXIE/Q==
+flow-bin@^0.167.1:
+  version "0.167.1"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.167.1.tgz#c2cfc2ca326ca16fbf9bf6ab273bb865b26b528b"
+  integrity sha512-YL3sy3YEa5do5O/dBmUFHqzsWGIj2Yhx3+FzNTQsmfimX5DTlUj9uC0LFmuG+c5pDtVo/d/1e38Vgd1o0fgh9g==
 
 flyd@^0.2.8:
   version "0.2.8"
