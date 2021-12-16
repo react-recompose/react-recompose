@@ -76,7 +76,10 @@ export default [
       format: 'cjs',
     },
     external: isExternal,
-    plugins: [babel(getBabelOptions({ useESModules: false }))],
+    plugins: [
+      babel(getBabelOptions({ useESModules: false })),
+      sizeSnapshot({ matchSnapshot }),
+    ],
   },
 
   {

@@ -22,5 +22,10 @@
         "code": 444
       }
     }
+  },
+  "lib/packages/recompose/dist/Recompose.cjs.js": {
+    "bundled": 33752,
+    "minified": 16462,
+    "gzipped": 3799
   }
 }
