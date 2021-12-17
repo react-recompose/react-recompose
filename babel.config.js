@@ -3,10 +3,7 @@ module.exports = {
   presets: [['@babel/env', { loose: true }], '@babel/react'],
 }
 
-// if (process.env.NODE_ENV === 'cjs') {
-//   module.exports.plugins.push(... ...)
-// }
-
-// As of Jest 27, this seems to be needed regardless of process.env.NODE_ENV
-// TODO: look for documentation *why* this is needed
-module.exports.plugins.push('@babel/transform-runtime')
+// TODO: find link to explain *why* @babel/transform-runtime is needed here
+if (process.env.NODE_ENV === 'cjs' || process.env.NODE_ENV === 'test') {
+  module.exports.plugins.push('@babel/transform-runtime')
+}
