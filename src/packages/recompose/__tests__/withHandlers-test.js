@@ -70,7 +70,9 @@ test('withHandlers warns if handler is not a higher-order function', () => {
   const wrapper = mount(<Button />)
   const button = wrapper.find('button')
 
-  expect(() => button.simulate('click')).toThrowError(/undefined/)
+  expect(() => button.simulate('click')).toThrowError(
+    /handler is not a function/
+  )
 
   expect(error.firstCall.args[0]).toBe(
     'withHandlers(): Expected a map of higher-order functions. Refer to ' +

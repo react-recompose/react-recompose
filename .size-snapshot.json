@@ -1,25 +1,25 @@
 {
   "lib/packages/recompose/dist/Recompose.umd.js": {
-    "bundled": 45963,
-    "minified": 16127,
-    "gzipped": 4614
+    "bundled": 34552,
+    "minified": 12266,
+    "gzipped": 4019
   },
   "lib/packages/recompose/dist/Recompose.min.js": {
-    "bundled": 42401,
-    "minified": 14847,
-    "gzipped": 4171
+    "bundled": 31284,
+    "minified": 11044,
+    "gzipped": 3607
   },
   "lib/packages/recompose/dist/Recompose.esm.js": {
-    "bundled": 32325,
-    "minified": 15138,
-    "gzipped": 3567,
+    "bundled": 22295,
+    "minified": 11201,
+    "gzipped": 2988,
     "treeshaked": {
       "rollup": {
-        "code": 310,
-        "import_statements": 310
+        "code": 127,
+        "import_statements": 127
       },
       "webpack": {
-        "code": 444
+        "code": 272
       }
     }
   }
