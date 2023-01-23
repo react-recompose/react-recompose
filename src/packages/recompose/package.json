@@ -15,7 +15,7 @@
   "dependencies": {
     "@babel/runtime": "^7.20.13",
     "change-emitter": "^0.1.6",
-    "hoist-non-react-statics": "^2.5.5",
+    "hoist-non-react-statics": "^3.3.2",
     "react-lifecycles-compat": "^3.0.4",
     "symbol-observable": "^1.2.0"
   },
