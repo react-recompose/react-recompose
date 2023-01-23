@@ -18,6 +18,7 @@ type EnhancedCompProps = {
   obj: { objPropA: string, objPropB: number },
 }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ eA, objPropA }) =>
   <div>
     {(eA: number)}
@@ -32,6 +33,7 @@ const Comp = ({ eA, objPropA }) =>
     }
   </div>
 
+// $FlowFixMe[missing-local-annot]
 const Comp2 = ({ eA, objPropA }) =>
   <div>
     {/* hack to preview types */}
@@ -57,6 +59,7 @@ const EnhancedComponent = flattenEnhacer(Comp)
 const EnhancedComponent2 = flattenEnhacer(Comp2)
 
 // renameEnhacer voodoo (you don't need it, use withProps instead)
+// $FlowFixMe[missing-local-annot]
 const RenameComp = ({ eA, objNew, obj }) =>
   <div>
     {(eA: number)}

@@ -67,6 +67,7 @@ const enhancerFuncInit: HOC<*, EnhancedCompProps> = compose(
   }))
 )
 
+// $FlowFixMe[missing-local-annot]
 const BaseComponent = ({ hi, changeValue, setValue }) =>
   <div
     onClick={() => {

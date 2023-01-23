@@ -7,6 +7,7 @@ import type { HOC } from '../..'
 
 type EnhancedCompProps = { eA: 1 }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ hello, eA }) =>
   <div>
     {(hello: string)}

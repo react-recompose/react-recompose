@@ -13,6 +13,7 @@ const Observable = {
   of: (a: Object) => Object,
 }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ a }) =>
   <div>
     {(a: string)}
@@ -23,6 +24,7 @@ const Comp = ({ a }) =>
   </div>
 
 const enhacer: HOC<*, EnhancedCompProps> = compose(
+  // $FlowFixMe[incompatible-use]
   (mapPropsStream((props$: Observable<EnhancedCompProps>) =>
     Observable.of({ a: 1, b: '1' })
   ): HOC<{ a: string, b: string }, *>),

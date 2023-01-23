@@ -4,13 +4,17 @@ import { compose, fromRenderProps } from '../..'
 
 import type { HOC } from '../..'
 
+// $FlowFixMe[missing-local-annot]
 const RenderPropsComponent1 = ({ children }) => children({ theme: 'dark' })
+// $FlowFixMe[missing-local-annot]
 const RenderPropsComponent2 = ({ render }) => render({ i18n: 'zh-TW' })
+// $FlowFixMe[missing-local-annot]
 const RenderPropsComponent3 = ({ children }) =>
   children({ theme: 'dark' }, { data: 'data' })
 
 type EnhancedCompProps = {||}
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ i18n, theme, data }) =>
   <div>
     {i18n}
