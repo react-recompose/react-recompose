@@ -1,7 +1,7 @@
 import path from 'path'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import { babel } from '@rollup/plugin-babel'
-import replace from 'rollup-plugin-replace'
+import replace from '@rollup/plugin-replace'
 import commonjs from 'rollup-plugin-commonjs'
 import { uglify } from 'rollup-plugin-uglify'
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
