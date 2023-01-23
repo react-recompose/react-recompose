@@ -1,6 +1,6 @@
 import path from 'path'
 import nodeResolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
+import { babel } from '@rollup/plugin-babel'
 import replace from 'rollup-plugin-replace'
 import commonjs from 'rollup-plugin-commonjs'
 import { uglify } from 'rollup-plugin-uglify'
@@ -21,7 +21,7 @@ const isExternal = id => !id.startsWith('.') && !id.startsWith('/')
 
 const getBabelOptions = ({ useESModules }) => ({
   exclude: '**/node_modules/**',
-  runtimeHelpers: true,
+  babelHelpers: 'runtime',
   plugins: [['@babel/transform-runtime', { useESModules }]],
 })
 
