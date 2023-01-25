@@ -2,12 +2,14 @@
 /* eslint-disable import/no-dynamic-require, no-console */
 const fs = require('fs')
 const path = require('path')
-const { exec, exit, rm, mkdir, cp, test } = require('shelljs')
+const { exec, exit, rm, cp, test } = require('shelljs')
 const chalk = require('chalk')
 const { flowRight: compose } = require('lodash')
 const readline = require('readline-sync')
 const semver = require('semver')
 const { pascalCase } = require('change-case')
+
+const BIN = './node_modules/.bin'
 
 const {
   PACKAGES_SRC_DIR,
@@ -37,20 +39,14 @@ try {
   const packageNames = getPackageNames()
 
   let packageName = readline.question(
-    `Name of package to release (choose from ${packageNames.join(' or ')}), ` +
-      `or leave blank for ${packageNames[0]}: `
+    `Name of package to release (choose from ${packageNames.join(' or ')}): `
   )
 
-  while (packageName && !packageNames.includes(packageName)) {
+  while (!packageNames.includes(packageName)) {
     packageName = readline.question(
       `The package "${packageName}" does not exist in this project. ` +
         'Choose again: '
     )
-  }
-
-  if (!packageName) {
-    /* eslint-disable prefer-destructuring */
-    packageName = packageNames[0]
   }
 
   const libraryName = pascalCase(packageName)
@@ -90,9 +86,18 @@ try {
   const sourceDir = path.resolve(PACKAGES_SRC_DIR, packageName)
   const outDir = path.resolve(PACKAGES_OUT_DIR, packageName)
 
-  log('Creating clean destination directory...')
+  log('Cleaning destination directory...')
   rm('-rf', outDir)
-  mkdir('-p', outDir)
+
+  log('Compiling source files...')
+
+  exec(
+    'cross-env NODE_ENV=cjs ' +
+      `${path.resolve(BIN)}/babel ${sourceDir} ` +
+      `--out-dir ${path.resolve(
+        outDir
+      )} --ignore="**/__tests__/**,**/node_modules/**"`
+  )
 
   log('Copying additional project files...')
   const additionalProjectFiles = ['README.md', '.npmignore']
