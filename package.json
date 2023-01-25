@@ -80,7 +80,7 @@
     "react-dom": "^17.0.2",
     "readline-sync": "^1.4.10",
     "rollup": "^2.79.1",
-    "rollup-plugin-size-snapshot": "npm:@brodybits/rollup-plugin-size-snapshot@^0.13.3",
+    "rollup-plugin-size-snapshot": "npm:@brodybits/rollup-plugin-size-snapshot@^0.13.4",
     "rollup-plugin-uglify": "^4.0.0",
     "rx": "^4.1.0",
     "rxjs": "^5.5.12",
