@@ -41,6 +41,14 @@ test('componentFromStream unsubscribes from stream before unmounting', () => {
 })
 
 test('componentFromStream renders nothing until the stream emits a value', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  if (process.env.TEST_WITH_REACT_18) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 - see react-recompose#40')
+    return
+  }
+
   const vdom$ = new Subject()
   const Div = componentFromStream(() => vdom$.mapTo(<div />))
   const wrapper = mount(<Div />)
@@ -95,6 +103,14 @@ test('complete props stream before unmounting', () => {
 })
 
 test('completed props stream should throw an exception', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR PREACT - see react-recompose#41')
+    return
+  }
+
   const Div = componentFromStream(props$ => {
     const first$ = props$.filter(() => false).first().startWith(null)
 

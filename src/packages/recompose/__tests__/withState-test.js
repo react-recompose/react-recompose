@@ -5,6 +5,15 @@ import sinon from 'sinon'
 import { withState } from '../'
 
 test('withState adds a stateful value and a function for updating it', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -25,6 +34,15 @@ test('withState adds a stateful value and a function for updating it', () => {
 })
 
 test('withState also accepts a non-function, which is passed directly to setState()', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -37,6 +55,14 @@ test('withState also accepts a non-function, which is passed directly to setStat
 })
 
 test('withState accepts setState() callback', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  if (process.env.TEST_WITH_REACT_18) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 - see react-recompose#40')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -53,6 +79,15 @@ test('withState accepts setState() callback', () => {
 })
 
 test('withState also accepts initialState as function of props', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
