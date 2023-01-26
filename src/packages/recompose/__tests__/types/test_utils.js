@@ -8,16 +8,17 @@ import type { HOC } from '../..'
 
 type EnhancedCompProps = { a: number }
 
+// $FlowFixMe[missing-local-annot]
 const A = ({ a, b }) =>
   <div>
     {a}
     {(b: string)}
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (a: string)
     }
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (b: number)
     }
   </div>

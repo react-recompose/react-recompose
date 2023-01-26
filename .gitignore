@@ -4,3 +4,5 @@ lib
 coverage
 .vscode
 yarn-error.log
+.*.orig
+*.orig

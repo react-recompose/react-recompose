@@ -141,7 +141,7 @@ withHandlers(
 ): HigherOrderComponent
 ```
 
-Takes an object map of handler creators or a factory function. These are higher-order functions that accept a set of props and return a function handler:
+Takes an object map of handler creators or a factory function. These are higher-order functions that accept a set of props and return a function handler.
 
 This allows the handler to access the current props via closure, without needing to change its signature.
 
@@ -180,9 +180,9 @@ defaultProps(
 ): HigherOrderComponent
 ```
 
-Specifies props to be passed by default to the base component. Similar to `withProps()`, except the props from the owner take precedence over props provided to the HoC.
+Specifies props to be passed by default to the base component. Similar to `withProps()`, except the props from the owner take precedence over props provided to the HOC.
 
-Although it has a similar effect, using the `defaultProps()` HoC is *not* the same as setting the static `defaultProps` property directly on the component.
+Although it has a similar effect, using the `defaultProps()` HOC is *not* the same as setting the static `defaultProps` property directly on the component.
 
 
 ### `renameProp()`
@@ -297,7 +297,7 @@ stateUpdater<T>((prevValue: T) => T, ?callback: Function): void
 stateUpdater(newValue: any, ?callback: Function): void
 ```
 
-The first form accepts a function which maps the previous state value to a new state value. You'll likely want to use this state updater along with `withHandlers()` to create specific updater functions. For example, to create a HoC that adds basic counting functionality to a component:
+The first form accepts a function which maps the previous state value to a new state value. You'll likely want to use this state updater along with `withHandlers()` to create specific updater functions. For example, to create a HOC that adds basic counting functionality to a component:
 
 ```js
 const addCounting = compose(
@@ -355,6 +355,7 @@ Example:
   )(
     ({ counter, incrementOn, decrementOn, resetCounter }) =>
       <div>
+        <h2>{counter}</h2>
         <Button onClick={() => incrementOn(2)}>Inc</Button>
         <Button onClick={() => decrementOn(3)}>Dec</Button>
         <Button onClick={resetCounter}>Reset</Button>
@@ -598,7 +599,7 @@ const PostsListWithData = lifecycle({
 toClass: HigherOrderComponent
 ```
 
-Takes a function component and wraps it in a class. This can be used as a fallback for libraries that need to add a ref to a component, like Relay.
+Takes a function component and wraps it in a class. It can be used as a fallback for libraries that need to add a ref to a component, like Relay Classic.
 
 If the base component is already a class, it returns the given component.
 

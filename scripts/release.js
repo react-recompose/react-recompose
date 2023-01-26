@@ -38,7 +38,9 @@ try {
 
   const packageNames = getPackageNames()
 
-  let packageName = readline.question('Name of package to release: ')
+  let packageName = readline.question(
+    `Name of package to release (choose from ${packageNames.join(' or ')}): `
+  )
 
   while (!packageNames.includes(packageName)) {
     packageName = readline.question(
@@ -66,6 +68,10 @@ try {
       `Must provide a valid version that is greater than ${version}, ` +
         'or leave blank to skip: '
     )
+  }
+
+  if (!nextVersion) {
+    nextVersion = version
   }
 
   log('Running tests...')
@@ -117,6 +123,15 @@ try {
 
   log('Copying license...')
   cp('-f', 'LICENSE.md', outDir)
+
+  log('Copying CHANGELOG...')
+  cp('-f', 'CHANGELOG.md', outDir)
+
+  // need to overwrite README.md with README.md from root of this fork:
+  if (packageName.endsWith('recompose')) {
+    log('Copying README.md from root')
+    cp('-f', 'README.md', outDir)
+  }
 
   log(`Building ${packageName}...`)
   const runRollup = () => `yarn build:${packageName}`

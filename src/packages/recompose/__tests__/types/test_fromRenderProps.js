@@ -4,28 +4,32 @@ import { compose, fromRenderProps } from '../..'
 
 import type { HOC } from '../..'
 
+// $FlowFixMe[missing-local-annot]
 const RenderPropsComponent1 = ({ children }) => children({ theme: 'dark' })
+// $FlowFixMe[missing-local-annot]
 const RenderPropsComponent2 = ({ render }) => render({ i18n: 'zh-TW' })
+// $FlowFixMe[missing-local-annot]
 const RenderPropsComponent3 = ({ children }) =>
   children({ theme: 'dark' }, { data: 'data' })
 
 type EnhancedCompProps = {||}
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ i18n, theme, data }) =>
   <div>
     {i18n}
     {theme}
     {data}
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (i18n: number)
     }
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (theme: number)
     }
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (data: number)
     }
   </div>
@@ -33,14 +37,14 @@ const Comp = ({ i18n, theme, data }) =>
 const enhancer: HOC<*, EnhancedCompProps> = compose(
   fromRenderProps(RenderPropsComponent1, props => ({
     theme: props.theme,
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: props.iMNotExists,
   })),
   fromRenderProps(
     RenderPropsComponent2,
     props => ({
       i18n: props.i18n,
-      // $ExpectError property not found
+      // $FlowExpectedError (...) - property not found
       err: props.iMNotExists,
     }),
     'render'
@@ -48,7 +52,7 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
   fromRenderProps(RenderPropsComponent3, (props, data) => ({
     theme: props.theme,
     data: data.data,
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: data.iMNotExists,
   }))
 )

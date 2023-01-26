@@ -3,6 +3,6 @@ module.exports = {
   presets: [['@babel/env', { loose: true }], '@babel/react'],
 }
 
-if (process.env.NODE_ENV === 'cjs') {
+if (process.env.NODE_ENV === 'cjs' || process.env.NODE_ENV === 'test') {
   module.exports.plugins.push('@babel/transform-runtime')
 }

@@ -1,3 +1,11 @@
+# react-recompose
+
+[![LICENSE](https://img.shields.io/npm/l/react-recompose?style=flat-square)](LICENSE.md)
+[![npm:react-recompose](https://img.shields.io/npm/v/react-recompose?style=flat-square)](https://www.npmjs.com/package/react-recompose)
+
+an updated fork of [Recompose](https://github.com/acdlite/recompose)
+
+<!-- ORIGINAL CONTENT HIDDEN:
 ## A Note from the Author (acdlite, Oct 25 2018):
 
 Hi! I created Recompose about three years ago. About a year after that, I joined the React team. Today, we announced a proposal for [*Hooks*](https://reactjs.org/hooks). Hooks solves all the problems I attempted to address with Recompose three years ago, and more on top of that. I will be discontinuing active maintenance of this package (excluding perhaps bugfixes or patches for compatibility with future React releases), and recommending that people use Hooks instead. **Your existing code with Recompose will still work**, just don't expect any new features. Thank you so, so much to [@wuct](https://github.com/wuct) and [@istarkov](https://github.com/istarkov) for their heroic work maintaining Recompose over the last few years.
@@ -14,21 +22,44 @@ Recompose
 [![code climate](https://img.shields.io/codeclimate/github/acdlite/recompose.svg?style=flat-square)](https://codeclimate.com/github/acdlite/recompose)
 [![npm version](https://img.shields.io/npm/v/recompose.svg?style=flat-square)](https://www.npmjs.com/package/recompose)
 [![npm downloads](https://img.shields.io/npm/dm/recompose.svg?style=flat-square)](https://www.npmjs.com/package/recompose)
+- -->
 
 Recompose is a React utility belt for function components and higher-order components. Think of it like lodash for React.
 
 [**Full API documentation**](docs/API.md) - Learn about each helper
 
+### Try Recompose
+
+in an outdated version:
+
 [**Recompose Base Fiddle**](https://jsfiddle.net/evenchange4/p3vsmrvo/1599/) - Easy way to dive in
 
+<!-- ORIGINAL CONTENT HIDDEN:
 ```
 npm install recompose --save
 ```
+- -->
+
+### Talk on YouTube
 
 **📺 Watch Andrew's [talk on Recompose at React Europe](https://www.youtube.com/watch?v=zD_judE-bXk).**
 *(Note: Performance optimizations he speaks about have been removed, more info [here](https://github.com/acdlite/recompose/releases/tag/v0.26.0))*
 
+### Installation
+
+It is **highly** recommended to use Yarn to install this fork as an alias, for example:
+
+    yarn add recompose@npm:react-recompose
+
+then for TypeScript users:
+
+    yarn add --dev @types/recompose
+
+or try out [`suguru03/recomposer`](https://github.com/suguru03/recomposer).
+
 ### Related modules
+
+**no longer supported:**
 
 [**recompose-relay**](src/packages/recompose-relay) — Recompose helpers for Relay
 
@@ -200,11 +231,21 @@ Function components have several key advantages:
 
 Most of the time when we talk about composition in React, we're talking about composition of components. For example, a `<Blog>` component may be composed of many `<Post>` components, which are composed of many `<Comment>` components.
 
-Recompose focuses on another unit of composition: **higher-order components** (HoCs). HoCs are functions that accept a base component and return a new component with additional functionality. They can be used to abstract common tasks into reusable pieces.
+Recompose focuses on another unit of composition: **higher-order components** (HOCs). HOCs are functions that accept a base component and return a new component with additional functionality. They can be used to abstract common tasks into reusable pieces.
 
 Recompose provides a toolkit of helper functions for creating higher-order components.
 
-## [Should I use this? Performance and other concerns](docs/performance.md)
+## Should I use this?
+
+[Performance and other concerns](docs/performance.md)
+
+
+[Use a Render Prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) [Michael Jackson](https://twitter.com/mjackson) article about what's wrong with HOCs.
+
+see also:
+
+- [`acdlite/recompose#531`](https://github.com/acdlite/recompose/pull/531) - PR with some discussion
+- [`acdlite/recompose#756`](https://github.com/acdlite/recompose/issues/756) - big disucssion of hooks API versus this library
 
 ## Usage
 
@@ -303,6 +344,9 @@ const enhance = compose(
 )
 ```
 
+# Community
+
+**NOTE:** Not all of this information applies to this fork. Please feel free to raise an issue in case of any questions or feedback.
 
 ## Who uses Recompose
 If your company or project uses Recompose, feel free to add it to [the official list of users](https://github.com/acdlite/recompose/wiki/Sites-Using-Recompose) by [editing](https://github.com/acdlite/recompose/wiki/Sites-Using-Recompose/_edit) the wiki page.

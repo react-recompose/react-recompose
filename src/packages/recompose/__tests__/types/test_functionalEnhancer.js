@@ -12,19 +12,20 @@ function mapProps<BaseProps: {}, EnhancedProps>(
 
 type EnhancedProps = { hello: string }
 
+// $FlowFixMe[missing-local-annot]
 const baseComponent = ({ hello, len }) =>
   <div>
     {(hello: string)}
 
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (hello: number)
     }
 
     {(len: number)}
 
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (len: string)
     }
   </div>
@@ -36,7 +37,7 @@ const enhancer: HOC<*, EnhancedProps> = compose(
   })),
   withProps(props => ({
     helloAndLen: `${props.hello} ${props.len}`,
-    // $ExpectError
+    // $FlowExpectedError (...)
     lE: (props.len: string),
   }))
 )

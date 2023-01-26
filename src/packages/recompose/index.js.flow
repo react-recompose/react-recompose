@@ -112,15 +112,7 @@ declare export function withStateHandlers<
 
 declare export function withHandlers<
   Enhanced,
-  Handlers:
-    | ((
-        props: Enhanced
-      ) => {
-        [key: string]: (props: Enhanced) => Function,
-      })
-    | {
-        [key: string]: (props: Enhanced) => Function,
-      }
+  Handlers: {[key: string]: (props: Enhanced) => Function}
 >(
   handlers: ((props: Enhanced) => Handlers) | Handlers
 ): HOC<

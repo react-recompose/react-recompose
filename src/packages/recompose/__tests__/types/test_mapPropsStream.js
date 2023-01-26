@@ -13,16 +13,18 @@ const Observable = {
   of: (a: Object) => Object,
 }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ a }) =>
   <div>
     {(a: string)}
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (a: number)
     }
   </div>
 
 const enhacer: HOC<*, EnhancedCompProps> = compose(
+  // $FlowFixMe[incompatible-use]
   (mapPropsStream((props$: Observable<EnhancedCompProps>) =>
     Observable.of({ a: 1, b: '1' })
   ): HOC<{ a: string, b: string }, *>),
@@ -31,7 +33,7 @@ const enhacer: HOC<*, EnhancedCompProps> = compose(
   // but because of this https://github.com/facebook/flow/issues/4342
   withProps(props => ({
     a: (props.a: string),
-    // $ExpectError but not
+    // $FlowExpectedError (...) - but not
     e: Math.round(props.a),
   }))
 )

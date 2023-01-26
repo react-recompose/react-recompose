@@ -7,16 +7,17 @@ import type { HOC } from '../..'
 
 type EnhancedCompProps = { a: string, b: number }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ hello, b }) =>
   <div>
     {hello}
     {b}
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (b: number)
     }
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (hello: number)
     }
   </div>
@@ -28,7 +29,7 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
   })),
   withProps(({ b, hello }) => ({
     hello: (hello: string),
-    // $ExpectError (This type is incompatible with number)
+    // $FlowExpectedError (...) - (This type is incompatible with number)
     c: (b: number),
   })),
   // check non functional form of with props
@@ -38,11 +39,11 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
   withProps(props => ({
     a: (props.a: string),
     d: (props.d: string),
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: props.iMNotExists,
-    // $ExpectError a not a number and not any
+    // $FlowExpectedError (...) - a not a number and not any
     aErr: (props.a: number),
-    // $ExpectError d not a number and not any
+    // $FlowExpectedError (...) - d not a number and not any
     dErr: (props.d: number),
   }))
 )
@@ -50,8 +51,8 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
 const EnhancedComponent = enhancer(Comp)
 ;<EnhancedComponent a={'1'} b={1} />
 
-// $ExpectError
+// $FlowExpectedError (...)
 ;<EnhancedComponent a={'1'} b={'1'} />
 
-// $ExpectError
+// $FlowExpectedError (...)
 ;<EnhancedComponent a={'1'} />

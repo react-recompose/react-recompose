@@ -10,13 +10,16 @@ function fetcher<Response: {}, Base: {}>(
 ): HOC<{ ...$Exact<Base>, data?: Response }, Base> {
   return BaseComponent =>
     class Fetcher extends React.Component<Base, { data?: Response }> {
+      // $FlowFixMe[missing-local-annot]
       state = { data: undefined }
       componentDidMount() {
         fetch(dest)
           .then(r => r.json())
           .then((data: Response) => this.setState({ data }))
       }
+      // $FlowFixMe[missing-local-annot]
       render() {
+        // $FlowFixMe[cannot-spread-inexact] - TBD expected error here?
         return <BaseComponent {...this.props} {...this.state} />
       }
     }
@@ -35,7 +38,7 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
     if (data !== undefined) {
       return {
         h: (data.hello: string),
-        // $ExpectError
+        // $FlowExpectedError (...)
         hE: (data.hello: number),
       }
     }

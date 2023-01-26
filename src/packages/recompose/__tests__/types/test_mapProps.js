@@ -8,11 +8,12 @@ import type { HOC } from '../..'
 
 type EnhancedCompProps = { eA: 1 }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ a }) =>
   <div>
     {(a: string)}
     {
-      // $ExpectError
+      // $FlowExpectedError (...)
       (a: number)
     }
   </div>
@@ -26,7 +27,7 @@ const enhacer: HOC<*, EnhancedCompProps> = compose(
   // seems like this https://github.com/facebook/flow/issues/4342 issue
   withProps(props => ({
     a: (props.a: string),
-    // $ExpectError but not
+    // $FlowExpectedError (...) - but not
     e: Math.round(props.a),
   }))
 )

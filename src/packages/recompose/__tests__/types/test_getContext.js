@@ -12,11 +12,12 @@ const PropTypes = {
 
 type EnhancedCompProps = { eA: 1 }
 
+// $FlowFixMe[missing-local-annot]
 const Comp = ({ eA }) =>
   <div>
     {(eA: number)}
     {
-      // $ExpectError eA nor any nor string
+      // $FlowExpectedError (...) - eA nor any nor string
       (eA: string)
     }
   </div>
@@ -31,13 +32,13 @@ const enhacer: HOC<*, EnhancedCompProps> = compose(
   withProps(props => ({
     eA: (props.eA: number),
     color: (props.color: string),
-    // $ExpectError eA nor any nor string
+    // $FlowExpectedError (...) - eA nor any nor string
     eAErr: (props.eA: string),
-    // $ExpectError color nor any nor number
+    // $FlowExpectedError (...) - color nor any nor number
     colorErr: (props.color: number),
   })),
   withProps(props => ({
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: props.iMNotExists,
   }))
 )

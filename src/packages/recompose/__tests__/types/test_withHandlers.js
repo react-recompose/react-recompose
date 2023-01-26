@@ -29,9 +29,9 @@ const enhancer: HOC<*, EnhancedCompProps> = compose(
     resType: (props.onValueChange(0): boolean),
     ee: props.onOtherValueChange({ id: 'aa' }),
 
-    // $ExpectError result is not any or number
+    // $FlowExpectedError (...) - result is not any or number
     resTypeErr: (props.onValueChange(0): number),
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: props.iMNotExists,
   }))
 )
@@ -49,25 +49,26 @@ const enhancer2: HOC<*, EnhancedCompProps> = compose(
     valueClone: (props.value: number),
     resType: (props.onValueChange(0): boolean),
 
-    // $ExpectError result is not any or number
+    // $FlowExpectedError (...) - result is not any or number
     resTypeErr: (props.onValueChange(0): number),
-    // $ExpectError property not found
+    // $FlowExpectedError (...) - property not found
     err: props.iMNotExists,
   }))
 )
 
+// $FlowFixMe[missing-local-annot]
 const BaseComp = ({ value, onValueChange }) =>
   <div
     onClick={() => {
       const res = onValueChange(1)
       ;(res: boolean)
-      // $ExpectError
+      // $FlowExpectedError (...)
       ;(res: number)
     }}
   >
     {(value: number)}
     {
-      // $ExpectError value is not any or string
+      // $FlowExpectedError (...) - value is not any or string
       (value: string)
     }
   </div>
