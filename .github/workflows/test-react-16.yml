@@ -22,8 +22,6 @@ jobs:
         react-version:
         - 16
         - 16.3
-        - 16.2
-        # - 16.1 - failed with React 16.1, as expected.
 
     steps:
     - uses: actions/checkout@v2
