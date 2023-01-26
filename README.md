@@ -51,7 +51,15 @@ It is **highly** recommended to use Yarn to install this fork as an alias, for e
 
     yarn add recompose@npm:react-recompose
 
+then for TypeScript users:
+
+    yarn add --dev @types/recompose
+
+or try out [`suguru03/recomposer`](https://github.com/suguru03/recomposer).
+
 ### Related modules
+
+**no longer supported:**
 
 [**recompose-relay**](src/packages/recompose-relay) — Recompose helpers for Relay
 
@@ -336,6 +344,9 @@ const enhance = compose(
 )
 ```
 
+# Community
+
+**NOTE:** Not all of this information applies to this fork. Please feel free to raise an issue in case of any questions or feedback.
 
 ## Who uses Recompose
 If your company or project uses Recompose, feel free to add it to [the official list of users](https://github.com/acdlite/recompose/wiki/Sites-Using-Recompose) by [editing](https://github.com/acdlite/recompose/wiki/Sites-Using-Recompose/_edit) the wiki page.
