@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint scripts src",
     "build:recompose": "npm run build:recompose:modules && npm run build:recompose:rollup",
-    "build:recompose:modules": "npx cross-env NODE_ENV=cjs babel ./src/packages/recompose --out-dir ./lib/packages/recompose --ignore='**/__tests__/**,**/node_modules/**'",
+    "build:recompose:modules": "cross-env NODE_ENV=cjs babel ./src/packages/recompose --out-dir ./lib/packages/recompose --ignore='**/__tests__/**,**/node_modules/**'",
     "build:recompose:rollup": "cross-env PACKAGE_NAME=recompose rollup --config scripts/rollup.config.js",
     "test": "jest && flow check && cross-env SNAPSHOT=match npm run build:recompose",
     "test:watch": "cross-env BABEL_ENV=cjs jest --watch",
