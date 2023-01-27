@@ -2,7 +2,7 @@
 /* eslint-disable import/no-dynamic-require, no-console */
 const fs = require('fs')
 const path = require('path')
-const { exec, exit, rm, cp, test } = require('shelljs')
+const { exec, exit, rm, mkdir, cp, test } = require('shelljs')
 const chalk = require('chalk')
 const { flowRight: compose } = require('lodash')
 const readline = require('readline-sync')
@@ -39,14 +39,20 @@ try {
   const packageNames = getPackageNames()
 
   let packageName = readline.question(
-    `Name of package to release (choose from ${packageNames.join(' or ')}): `
+    `Name of package to release (choose from ${packageNames.join(' or ')}), ` +
+      `or leave blank for ${packageNames[0]}: `
   )
 
-  while (!packageNames.includes(packageName)) {
+  while (packageName && !packageNames.includes(packageName)) {
     packageName = readline.question(
       `The package "${packageName}" does not exist in this project. ` +
         'Choose again: '
     )
+  }
+
+  if (!packageName) {
+    /* eslint-disable prefer-destructuring */
+    packageName = packageNames[0]
   }
 
   const libraryName = pascalCase(packageName)
