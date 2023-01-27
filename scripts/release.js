@@ -9,8 +9,6 @@ const readline = require('readline-sync')
 const semver = require('semver')
 const { pascalCase } = require('change-case')
 
-const BIN = './node_modules/.bin'
-
 const {
   PACKAGES_SRC_DIR,
   PACKAGES_OUT_DIR,
@@ -89,15 +87,20 @@ try {
   log('Cleaning destination directory...')
   rm('-rf', outDir)
 
-  log('Compiling source files...')
+  // includes the following steps for "recompose" package:
+  // - build individual CJS modules using Babel
+  // - use Rollup to bundle dist modules
+  // - use Gulp with plugins to generate the current checksum
+  log(`Building ${packageName}...`)
+  if (exec(`yarn build:${packageName}`).code !== 0) {
+    exit(1)
+  }
 
-  exec(
-    'cross-env NODE_ENV=cjs ' +
-      `${path.resolve(BIN)}/babel ${sourceDir} ` +
-      `--out-dir ${path.resolve(
-        outDir
-      )} --ignore="**/__tests__/**,**/node_modules/**"`
-  )
+  // check that checksum was already up-to-date
+  if (exec('git diff --quiet checksum').stdout !== '') {
+    logError('checksum was outdated, please update!')
+    exit(1)
+  }
 
   log('Copying additional project files...')
   const additionalProjectFiles = ['README.md', '.npmignore']
@@ -131,12 +134,6 @@ try {
   if (packageName.endsWith('recompose')) {
     log('Copying README.md from root')
     cp('-f', 'README.md', outDir)
-  }
-
-  log(`Building ${packageName}...`)
-  const runRollup = () => `yarn build:${packageName}`
-  if (exec(runRollup()).code !== 0) {
-    exit(1)
   }
 
   log(`Preparing ${libraryName}.cjs.js.flow...`)
