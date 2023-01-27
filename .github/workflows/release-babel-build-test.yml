@@ -10,7 +10,7 @@ name: release Babel modules build test
 # runs the tests on the output of the Babel transformation that is
 # part of the release build
 
-# FUTURE TODO refactor some of the steps into script(s) that
+# FUTURE TODO refactor some more of the steps into script(s) that
 # can be called from either scripts/release.js or GitHub CI.
 
 on:
@@ -34,10 +34,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - name: Babel release build
-      run: |
-        mkdir -p lib/packages/recompose
-        npx cross-env NODE_ENV=cjs babel ./src/packages/recompose --out-dir ./lib/packages/recompose --ignore="**/__tests__/**,**/node_modules/**"
+    - run: yarn build:recompose:modules
     - name: add (--dev) required dependencies
       # FUTURE TODO should install dependencies as specified src/packages/recompose/package.json
       run: yarn add --dev @babel/runtime change-emitter hoist-non-react-statics react-lifecycles-compat

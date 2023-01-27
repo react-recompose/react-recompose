@@ -9,8 +9,6 @@ const readline = require('readline-sync')
 const semver = require('semver')
 const { pascalCase } = require('change-case')
 
-const BIN = './node_modules/.bin'
-
 const {
   PACKAGES_SRC_DIR,
   PACKAGES_OUT_DIR,
@@ -95,15 +93,13 @@ try {
   log('Cleaning destination directory...')
   rm('-rf', outDir)
 
-  log('Compiling source files...')
-
-  exec(
-    'cross-env NODE_ENV=cjs ' +
-      `${path.resolve(BIN)}/babel ${sourceDir} ` +
-      `--out-dir ${path.resolve(
-        outDir
-      )} --ignore="**/__tests__/**,**/node_modules/**"`
-  )
+  // uses package script to include the following steps for "recompose":
+  // - build individual CJS modules using Babel
+  // - use Rollup to bundle dist modules
+  log(`Building modules for ${packageName}...`)
+  if (exec(`yarn build:${packageName}`).code !== 0) {
+    exit(1)
+  }
 
   log('Copying additional project files...')
   const additionalProjectFiles = ['README.md', '.npmignore']
@@ -137,12 +133,6 @@ try {
   if (packageName.endsWith('recompose')) {
     log('Copying README.md from root')
     cp('-f', 'README.md', outDir)
-  }
-
-  log(`Building ${packageName}...`)
-  const runRollup = () => `yarn build:${packageName}`
-  if (exec(runRollup()).code !== 0) {
-    exit(1)
   }
 
   log(`Preparing ${libraryName}.cjs.js.flow...`)
