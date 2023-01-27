@@ -97,7 +97,7 @@ try {
   }
 
   // check that checksum was already up-to-date
-  if (exec('git diff --quiet checksum').stdout !== '') {
+  if (exec('git diff --quiet checksum').code !== 0) {
     logError('checksum was outdated, please update!')
     exit(1)
   }
