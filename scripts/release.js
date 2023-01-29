@@ -2,7 +2,7 @@
 /* eslint-disable import/no-dynamic-require, no-console */
 const fs = require('fs')
 const path = require('path')
-const { exec, exit, rm, mkdir, cp, test } = require('shelljs')
+const { exec, exit, rm, cp, test } = require('shelljs')
 const chalk = require('chalk')
 const { flowRight: compose } = require('lodash')
 const readline = require('readline-sync')
