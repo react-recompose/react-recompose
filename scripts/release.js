@@ -96,7 +96,7 @@ try {
   // uses package script to include the following steps for "recompose":
   // - build individual CJS modules using Babel
   // - use Rollup to bundle dist modules
-  log(`Building modules for ${packageName}...`)
+  log(`Building ${packageName}...`)
   if (exec(`yarn build:${packageName}`).code !== 0) {
     exit(1)
   }
