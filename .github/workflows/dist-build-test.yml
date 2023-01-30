@@ -6,7 +6,7 @@
 # - https://github.com/react-recompose/react-recompose/issues/42
 name: dist Rollup build - skip 2 tests
 
-# FUTURE TODO refactor some of the steps into script(s) that
+# FUTURE TODO refactor some more of these steps into script(s) that
 # can be run from either the command line or GitHub CI.
 
 on:
@@ -40,7 +40,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - run: yarn build:recompose
+    - run: yarn build:recompose:rollup
     - name: add (--dev) required dependencies
       # FUTURE TODO should install dependencies as specified src/packages/recompose/package.json
       run: yarn add --dev @babel/runtime change-emitter hoist-non-react-statics react-lifecycles-compat
