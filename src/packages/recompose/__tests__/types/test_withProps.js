@@ -8,7 +8,7 @@ import type { HOC } from '../..'
 type EnhancedCompProps = { a: string, b: number }
 
 // $FlowFixMe[missing-local-annot]
-const Comp = ({ hello, b }) =>
+const Comp = ({ hello, b }) => (
   <div>
     {hello}
     {b}
@@ -21,6 +21,7 @@ const Comp = ({ hello, b }) =>
       (hello: number)
     }
   </div>
+)
 
 const enhancer: HOC<*, EnhancedCompProps> = compose(
   withProps(({ a, b }) => ({

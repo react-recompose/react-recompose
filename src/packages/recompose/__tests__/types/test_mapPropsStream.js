@@ -14,7 +14,7 @@ const Observable = {
 }
 
 // $FlowFixMe[missing-local-annot]
-const Comp = ({ a }) =>
+const Comp = ({ a }) => (
   <div>
     {(a: string)}
     {
@@ -22,6 +22,7 @@ const Comp = ({ a }) =>
       (a: number)
     }
   </div>
+)
 
 const enhacer: HOC<*, EnhancedCompProps> = compose(
   // $FlowFixMe[incompatible-use]

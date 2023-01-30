@@ -16,7 +16,7 @@
     "test:watch": "cross-env BABEL_ENV=cjs jest --watch",
     "release": "node scripts/release.js",
     "postinstall": "node scripts/installNestedPackageDeps.js",
-    "format": "prettier --semi false --trailing-comma es5 --single-quote --write 'scripts/*.js' 'src/packages/*/*.js' 'src/packages/*/!(node_modules)/**/*.js'",
+    "format": "prettier --arrow-parens avoid --semi false --trailing-comma es5 --single-quote --write 'scripts/*.js' 'src/packages/*/*.js' 'src/packages/*/!(node_modules)/**/*.js'",
     "precommit": "lint-staged",
     "prepush": "yarn test"
   },
@@ -81,7 +81,7 @@
     "kefir": "^3.8.8",
     "lint-staged": "^3.4.0",
     "most": "^1.9.0",
-    "prettier": "~1.5.3",
+    "prettier": "~2.2.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

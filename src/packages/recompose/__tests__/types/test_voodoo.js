@@ -19,7 +19,7 @@ type EnhancedCompProps = {
 }
 
 // $FlowFixMe[missing-local-annot]
-const Comp = ({ eA, objPropA }) =>
+const Comp = ({ eA, objPropA }) => (
   <div>
     {(eA: number)}
     {(objPropA: string)}
@@ -32,13 +32,15 @@ const Comp = ({ eA, objPropA }) =>
       (objPropA: number)
     }
   </div>
+)
 
 // $FlowFixMe[missing-local-annot]
-const Comp2 = ({ eA, objPropA }) =>
+const Comp2 = ({ eA, objPropA }) => (
   <div>
     {/* hack to preview types */}
     {/* :: eA, objPropA */}
   </div>
+)
 
 const flattenEnhacer: HOC<*, EnhancedCompProps> = compose(
   (flattenProp('obj'): HOC<
@@ -60,7 +62,7 @@ const EnhancedComponent2 = flattenEnhacer(Comp2)
 
 // renameEnhacer voodoo (you don't need it, use withProps instead)
 // $FlowFixMe[missing-local-annot]
-const RenameComp = ({ eA, objNew, obj }) =>
+const RenameComp = ({ eA, objNew, obj }) => (
   <div>
     {(eA: number)}
 
@@ -85,6 +87,7 @@ const RenameComp = ({ eA, objNew, obj }) =>
       (obj: string)
     }
   </div>
+)
 
 const renameEnhacer: HOC<*, EnhancedCompProps> = compose(
   (renameProp('obj', 'objNew'): HOC<

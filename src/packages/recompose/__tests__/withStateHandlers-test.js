@@ -13,13 +13,12 @@ test('withStateHandlers should persist events passed as argument', () => {
     return
   }
 
-  const component = ({ value, onChange }) =>
+  const component = ({ value, onChange }) => (
     <div>
       <input type="text" value={value} onChange={onChange} />
-      <p>
-        {value}
-      </p>
+      <p>{value}</p>
     </div>
+  )
 
   const InputComponent = withStateHandlers(
     { value: '' },
