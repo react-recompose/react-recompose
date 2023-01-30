@@ -1,3 +1,12 @@
+## react-recompose v0.32.0
+
+- fix: remove unsound function type union from Handlers generic default ref:
+  - [react-recompose/react-recompose#31](https://github.com/react-recompose/react-recompose/pull/31)
+- fix: update dependencies
+  - @babel/runtime -> ^7.20.13
+  - change-emitter -> ^0.1.6
+  - symbol-observable -> 4
+
 ## react-recompose v0.31.2
 
 - fix: update dependencies

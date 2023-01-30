@@ -2,9 +2,11 @@
 # - .github/workflows/ci-test-node.js.yml
 # - https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
 
-name: dist build test
+# skip multiple tests due to issue 42 ref:
+# - https://github.com/react-recompose/react-recompose/issues/42
+name: dist Rollup build - skip 2 tests
 
-# FUTURE TODO refactor some of the steps into script(s) that
+# FUTURE TODO refactor some more of these steps into script(s) that
 # can be run from either the command line or GitHub CI.
 
 on:
@@ -18,10 +20,10 @@ jobs:
 
     strategy:
       matrix:
-        dist-output:
-        - Recompose.cjs.js
-        - Recompose.esm.js
-        - Recompose.umd.js
+        ext:
+        - cjs.js
+        - esm.js
+        - umd.js
         # dist build test of Recompose.min.js is separated into min-dist-build-test.yml
         # due to the number of tests not working with Recompose.min.js
 
@@ -38,19 +40,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - run: yarn build:recompose
+    - run: yarn build:recompose:rollup
     - name: add (--dev) required dependencies
       # FUTURE TODO should install dependencies as specified src/packages/recompose/package.json
       run: yarn add --dev @babel/runtime change-emitter hoist-non-react-statics react-lifecycles-compat
     - name: copy __tests__ from src/packages/recompose
       run: cp -r src/packages/recompose/__tests__ lib/packages/recompose/dist
-    - name: copy js files needed for some tests # FUTURE TODO only copy js files **actually** needed here
+    - name: copy js files needed for some tests # TODO need a better solution, should be able to import from the bundle for most if not all tests
       run: |
         cp src/packages/recompose/*.js lib/packages/recompose/dist
         cp -r src/packages/recompose/utils lib/packages/recompose/dist
-    - name: remove test(s) not working with dist build # FUTURE TODO get all tests working with the dist build
+    - name: remove test(s) not working with dist build # TODO get all tests working with the dist build (issue 42)
       run: |
         rm lib/packages/recompose/dist/__tests__/mapPropsStream-test.js
         rm lib/packages/recompose/dist/__tests__/mapPropsStreamWithConfig-test.js # issue with Recompose.umd.js
-    - run: cp lib/packages/recompose/dist/${{ matrix.dist-output }} lib/packages/recompose/dist/index.js
+    - run: cp lib/packages/recompose/dist/Recompose.${{ matrix.ext }} lib/packages/recompose/dist/index.js
     - run: yarn jest lib/packages/recompose/dist

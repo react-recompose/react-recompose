@@ -17,7 +17,7 @@
     "change-emitter": "^0.1.6",
     "hoist-non-react-statics": "^3.3.2",
     "react-lifecycles-compat": "^3.0.4",
-    "symbol-observable": "^1.2.0"
+    "symbol-observable": "^4.0.0"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"

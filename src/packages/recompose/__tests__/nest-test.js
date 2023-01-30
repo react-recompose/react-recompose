@@ -3,6 +3,14 @@ import { shallow } from 'enzyme'
 import { nest, setDisplayName, toClass } from '../'
 
 test('nest nests components from outer to inner', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR PREACT - see react-recompose#41')
+    return
+  }
+
   const A = setDisplayName('A')(toClass('div'))
   const B = setDisplayName('B')(toClass('div'))
   const C = setDisplayName('C')(toClass('div'))
