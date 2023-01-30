@@ -96,8 +96,15 @@ try {
   // uses package script to include the following steps for "recompose":
   // - build individual CJS modules using Babel
   // - use Rollup to bundle dist modules
+  // - use Gulp with plugins to generate the current checksum
   log(`Building ${packageName}...`)
   if (exec(`yarn build:${packageName}`).code !== 0) {
+    exit(1)
+  }
+
+  // check that checksum was already up-to-date
+  if (exec('git diff --quiet checksum').code !== 0) {
+    logError('checksum was outdated, please commit updated checksum!')
     exit(1)
   }
 
