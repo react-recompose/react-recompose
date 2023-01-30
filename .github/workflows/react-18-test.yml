@@ -28,5 +28,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - run: yarn add --dev react@18 react-dom@18 enzyme-adapter-react-16@npm:@cfaester/enzyme-adapter-react-18
+    - run: yarn add --dev react@18 react-dom@18 @testing-library/react@latest enzyme-adapter-react-16@npm:@cfaester/enzyme-adapter-react-18
     - run: npx cross-env TEST_WITH_REACT_18=1 jest
