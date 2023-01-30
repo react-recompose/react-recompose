@@ -70,7 +70,7 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^2.7.0",
     "eslint-plugin-react": "^7.32.2",
-    "flow-bin": "^0.198.1",
+    "flow-bin": "^0.198.2",
     "flyd": "^0.2.8",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
