@@ -5,6 +5,14 @@ import sinon from 'sinon'
 import { compose, withStateHandlers } from '../'
 
 test('withStateHandlers should persist events passed as argument', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR PREACT - see react-recompose#41')
+    return
+  }
+
   const component = ({ value, onChange }) =>
     <div>
       <input type="text" value={value} onChange={onChange} />
@@ -39,6 +47,15 @@ test('withStateHandlers should persist events passed as argument', () => {
 })
 
 test('withStateHandlers adds a stateful value and a function for updating it', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -89,6 +106,14 @@ test('withStateHandlers accepts initialState as function of props', () => {
 })
 
 test('withStateHandlers initial state must be function or object or null or undefined', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR PREACT - see react-recompose#41')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -101,6 +126,15 @@ test('withStateHandlers initial state must be function or object or null or unde
 })
 
 test('withStateHandlers have access to props', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -131,6 +165,15 @@ test('withStateHandlers have access to props', () => {
 })
 
 test('withStateHandlers passes immutable state updaters', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -161,6 +204,15 @@ test('withStateHandlers passes immutable state updaters', () => {
 })
 
 test('withStateHandlers does not rerender if state updater returns undefined', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -193,6 +245,15 @@ test('withStateHandlers does not rerender if state updater returns undefined', (
 })
 
 test('withStateHandlers rerenders if parent props changed', () => {
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/40
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-line no-console */
+    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    return
+  }
+
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
