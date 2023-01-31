@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { Observable, Subject } from 'rxjs'
 import sinon from 'sinon'
+import { act } from './utils'
 import rxjsConfig from '../rxjsObservableConfig'
 import { componentFromStreamWithConfig } from '../componentFromStream'
 
@@ -37,19 +38,13 @@ test('componentFromStream unsubscribes from stream before unmounting', () => {
 })
 
 test('componentFromStream renders nothing until the stream emits a value', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  if (process.env.TEST_WITH_REACT_18) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 - see react-recompose#40')
-    return
-  }
-
   const vdom$ = new Subject()
   const Div = componentFromStream(() => vdom$.mapTo(<div />))
   const wrapper = mount(<Div />)
   expect(wrapper.find('div').length).toBe(0)
-  vdom$.next()
+  act(() => {
+    vdom$.next()
+  })
   wrapper.update()
   expect(wrapper.find('div').length).toBe(1)
 })
@@ -98,15 +93,7 @@ test('complete props stream before unmounting', () => {
   expect(counter).toBe(0)
 })
 
-test('completed props stream should throw an exception', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR PREACT - see react-recompose#41')
-    return
-  }
-
+test('completed props stream should throw an exception (etc.)', () => {
   const Div = componentFromStream(props$ => {
     const first$ = props$
       .filter(() => false)
@@ -123,5 +110,12 @@ test('completed props stream should throw an exception', () => {
   const error = sinon.stub(console, 'error')
 
   expect(() => wrapper.unmount()).toThrowError(/no elements in sequence/)
-  expect(error.called).toBe(true)
+
+  if (process.env.TEST_WITH_PREACT) {
+    // TBD investigate why there is no console error with Preact in this test
+    /* eslint-disable-next-line no-console */
+    console.warn('SKIP console error check for Preact in this test')
+  } else {
+    expect(error.called).toBe(true)
+  }
 })

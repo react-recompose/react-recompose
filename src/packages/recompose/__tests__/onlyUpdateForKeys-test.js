@@ -1,18 +1,10 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { actWith } from './utils'
 import { onlyUpdateForKeys, compose, withState } from '../'
 
 test('onlyUpdateForKeys implements shouldComponentUpdate()', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -27,12 +19,13 @@ test('onlyUpdateForKeys implements shouldComponentUpdate()', () => {
   )
 
   mount(<Counter />)
-  const { updateCounter, updateFoobar } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
+  const updateFoobar = actWith(component.firstCall.args[0].updateFoobar)
 
   expect(component.lastCall.args[0].counter).toBe(0)
   expect(component.lastCall.args[0].foobar).toBe('foobar')
 
-  // Does not update
+  // should not update
   updateFoobar('barbaz')
   expect(component.calledOnce).toBe(true)
 
