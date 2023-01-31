@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { actWith } from './utils'
 import {
   withPropsOnChange,
   withState,
@@ -10,15 +11,6 @@ import {
 } from '../'
 
 test('withPropsOnChange maps subset of owner props to child props', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -40,12 +32,12 @@ test('withPropsOnChange maps subset of owner props to child props', () => {
   )
 
   mount(<StringConcat />)
-  const { updateStrings } = component.firstCall.args[0]
+  const updateStrings = actWith(component.firstCall.args[0].updateStrings)
   expect(component.lastCall.args[0].foobar).toBe('ab')
   expect(component.calledOnce).toBe(true)
   expect(mapSpy.callCount).toBe(1)
 
-  // Does not re-map for non-dependent prop updates
+  // should not re-map for non-dependent prop updates
   updateStrings(strings => ({ ...strings, c: 'baz' }))
   expect(component.lastCall.args[0].foobar).toBe('ab')
   expect(component.lastCall.args[0].c).toBe('c')
@@ -60,15 +52,6 @@ test('withPropsOnChange maps subset of owner props to child props', () => {
 })
 
 test('withPropsOnChange maps subset of owner props to child props with custom predicate', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -110,7 +93,7 @@ test('withPropsOnChange maps subset of owner props to child props with custom pr
   )
 
   mount(<PageContainer />)
-  const { updateResult } = component.firstCall.args[0]
+  const updateResult = actWith(component.firstCall.args[0].updateResult)
   expect(component.lastCall.args[0].errorEverHappened).toBe(false)
   expect(component.lastCall.args[0].lastError).toBeUndefined()
   expect(component.calledOnce).toBe(true)
@@ -123,7 +106,7 @@ test('withPropsOnChange maps subset of owner props to child props with custom pr
   expect(component.calledTwice).toBe(true)
   expect(mapSpy.callCount).toBe(2)
 
-  // Does not re-map for false map result
+  // should not re-map for false map result
   updateResult({ loading: true, hasError: false, error: null })
   expect(component.lastCall.args[0].errorEverHappened).toBe(true)
   expect(component.lastCall.args[0].lastError).toBe('1')

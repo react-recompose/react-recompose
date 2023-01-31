@@ -1,19 +1,10 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { actWith, countRenders } from './utils'
 import { shouldUpdate, compose, withState } from '../'
-import { countRenders } from './utils'
 
 test('shouldUpdate implements shouldComponentUpdate', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -29,12 +20,12 @@ test('shouldUpdate implements shouldComponentUpdate', () => {
   )
 
   mount(<Todos />)
-  const { updateTodos } = component.firstCall.args[0]
+  const updateTodos = actWith(component.firstCall.args[0].updateTodos)
 
   expect(component.lastCall.args[0].todos).toBe(initialTodos)
   expect(component.lastCall.args[0].renderCount).toBe(1)
 
-  // Does not re-render
+  // should not re-render
   updateTodos(initialTodos)
   expect(component.calledOnce).toBe(true)
 

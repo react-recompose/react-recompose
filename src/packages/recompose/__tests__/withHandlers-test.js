@@ -7,8 +7,10 @@ test('withHandlers passes handlers to base component', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
   if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR PREACT - see react-recompose#41')
+    /* eslint-disable-next-line no-console */
+    console.warn(
+      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+    )
     return
   }
 
@@ -73,8 +75,10 @@ test('withHandlers warns if handler is not a higher-order function', () => {
   // - https://github.com/react-recompose/react-recompose/issues/40
   // - https://github.com/react-recompose/react-recompose/issues/41
   if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
+    /* eslint-disable-next-line no-console */
+    console.warn(
+      'SKIP FOR REACT 18 & PREACT - see https://github.com/react-recompose/react-recompose/issues/40 & https://github.com/react-recompose/react-recompose/issues/41'
+    )
     return
   }
 

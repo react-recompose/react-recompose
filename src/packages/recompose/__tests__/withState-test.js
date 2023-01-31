@@ -2,18 +2,11 @@ import React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 
+import { actWith } from './utils'
+
 import { withState } from '../'
 
 test('withState adds a stateful value and a function for updating it', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -21,7 +14,7 @@ test('withState adds a stateful value and a function for updating it', () => {
   expect(Counter.displayName).toBe('withState(component)')
 
   mount(<Counter pass="through" />)
-  const { updateCounter } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
 
   expect(component.lastCall.args[0].counter).toBe(0)
   expect(component.lastCall.args[0].pass).toBe('through')
@@ -34,41 +27,24 @@ test('withState adds a stateful value and a function for updating it', () => {
 })
 
 test('withState also accepts a non-function, which is passed directly to setState()', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
   const Counter = withState('counter', 'updateCounter', 0)(component)
   mount(<Counter />)
-  const { updateCounter } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
 
   updateCounter(18)
   expect(component.lastCall.args[0].counter).toBe(18)
 })
 
 test('withState accepts setState() callback', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  if (process.env.TEST_WITH_REACT_18) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 - see react-recompose#40')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
   const Counter = withState('counter', 'updateCounter', 0)(component)
   mount(<Counter />)
-  const { updateCounter } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
 
   const renderSpy = sinon.spy(() => {
     expect(component.lastCall.args[0].counter).toBe(18)
@@ -79,15 +55,6 @@ test('withState accepts setState() callback', () => {
 })
 
 test('withState also accepts initialState as function of props', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -98,7 +65,7 @@ test('withState also accepts initialState as function of props', () => {
   )(component)
 
   mount(<Counter initialCounter={1} />)
-  const { updateCounter } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
 
   expect(component.lastCall.args[0].counter).toBe(1)
   updateCounter(n => n * 3)
