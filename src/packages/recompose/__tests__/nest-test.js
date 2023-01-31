@@ -6,8 +6,10 @@ test('nest nests components from outer to inner', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
   if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR PREACT - see react-recompose#41')
+    /* eslint-disable-next-line no-console */
+    console.warn(
+      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+    )
     return
   }
 

@@ -2,14 +2,18 @@ import React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 
+import { actWith } from './utils'
+
 import { compose, withStateHandlers } from '../'
 
 test('withStateHandlers should persist events passed as argument', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
   if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR PREACT - see react-recompose#41')
+    /* eslint-disable-next-line no-console */
+    console.warn(
+      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+    )
     return
   }
 
@@ -47,15 +51,6 @@ test('withStateHandlers should persist events passed as argument', () => {
 })
 
 test('withStateHandlers adds a stateful value and a function for updating it', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -70,7 +65,7 @@ test('withStateHandlers adds a stateful value and a function for updating it', (
   expect(Counter.displayName).toBe('withStateHandlers(component)')
 
   mount(<Counter pass="through" />)
-  const { updateCounter } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
 
   expect(component.lastCall.args[0].counter).toBe(0)
   expect(component.lastCall.args[0].pass).toBe('through')
@@ -109,8 +104,10 @@ test('withStateHandlers initial state must be function or object or null or unde
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
   if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR PREACT - see react-recompose#41')
+    /* eslint-disable-next-line no-console */
+    console.warn(
+      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+    )
     return
   }
 
@@ -126,15 +123,6 @@ test('withStateHandlers initial state must be function or object or null or unde
 })
 
 test('withStateHandlers have access to props', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -156,7 +144,7 @@ test('withStateHandlers have access to props', () => {
     <Counter initialCounter={initialCounter} incrementValue={incrementValue} />
   )
 
-  const { increment } = component.firstCall.args[0]
+  const increment = actWith(component.firstCall.args[0].increment)
 
   increment()
   expect(component.lastCall.args[0].counter).toBe(
@@ -165,15 +153,6 @@ test('withStateHandlers have access to props', () => {
 })
 
 test('withStateHandlers passes immutable state updaters', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -195,7 +174,7 @@ test('withStateHandlers passes immutable state updaters', () => {
     <Counter initialCounter={initialCounter} incrementValue={incrementValue} />
   )
 
-  const { increment } = component.firstCall.args[0]
+  const increment = actWith(component.firstCall.args[0].increment)
 
   increment()
   expect(component.lastCall.args[0].counter).toBe(
@@ -204,15 +183,6 @@ test('withStateHandlers passes immutable state updaters', () => {
 })
 
 test('withStateHandlers does not rerender if state updater returns undefined', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -235,7 +205,7 @@ test('withStateHandlers does not rerender if state updater returns undefined', (
   mount(<Counter initialCounter={initialCounter} />)
   expect(component.callCount).toBe(1)
 
-  const { updateCounter } = component.firstCall.args[0]
+  const updateCounter = actWith(component.firstCall.args[0].updateCounter)
 
   updateCounter(1)
   expect(component.callCount).toBe(2)
@@ -245,15 +215,6 @@ test('withStateHandlers does not rerender if state updater returns undefined', (
 })
 
 test('withStateHandlers rerenders if parent props changed', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -284,7 +245,9 @@ test('withStateHandlers rerenders if parent props changed', () => {
 
   mount(<Counter initialCounter={initialCounter} />)
 
-  const { updateParentIncrement } = component.firstCall.args[0]
+  const updateParentIncrement = actWith(
+    component.firstCall.args[0].updateParentIncrement
+  )
 
   updateParentIncrement()
   expect(component.lastCall.args[0].counter).toBe(initialCounter + 1)

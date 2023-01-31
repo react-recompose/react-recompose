@@ -1,20 +1,12 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { act, actWith } from './utils'
 import { withReducer, compose, flattenProp } from '../'
 
 const SET_COUNTER = 'SET_COUNTER'
 
 test('adds a stateful value and a function for updating it', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -31,7 +23,7 @@ test('adds a stateful value and a function for updating it', () => {
   expect(Counter.displayName).toBe('withReducer(flattenProp(component))')
 
   mount(<Counter />)
-  const { dispatch } = component.firstCall.args[0]
+  const dispatch = actWith(component.firstCall.args[0].dispatch)
 
   expect(component.lastCall.args[0].counter).toBe(0)
 
@@ -78,15 +70,6 @@ test('receives state from reducer when initialState is not provided', () => {
 })
 
 test('calls the given callback with new state after a dispatch call', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-line no-console */
-    console.log('SKIP FOR REACT 18 & PREACT - see react-recompose#40 & #42')
-    return
-  }
-
   const component = sinon.spy(() => null)
   component.displayName = 'component'
 
@@ -104,7 +87,9 @@ test('calls the given callback with new state after a dispatch call', () => {
   const dispatch = sinon.spy(component.firstCall.args[0].dispatch)
   const callback = sinon.spy()
 
-  dispatch({ type: SET_COUNTER, payload: 11 }, callback)
+  act(() => {
+    dispatch({ type: SET_COUNTER, payload: 11 }, callback)
+  })
   expect(dispatch.calledBefore(callback)).toBe(true)
   expect(dispatch.calledOnce).toBe(true)
   expect(callback.calledAfter(dispatch)).toBe(true)
