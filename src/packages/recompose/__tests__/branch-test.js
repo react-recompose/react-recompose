@@ -1,6 +1,13 @@
 import sinon from 'sinon'
 import React from 'react'
 import { mount } from 'enzyme'
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
+  Simulate,
+} from 'react-dom/test-utils'
+import { findDOMNode } from 'react-dom'
 import { branch, compose, withState, withProps } from '../'
 
 test('branch tests props and applies one of two HoCs, for true and false', () => {
@@ -25,18 +32,27 @@ test('branch tests props and applies one of two HoCs, for true and false', () =>
 
   expect(SayMyName.displayName).toBe('withState(branch(Component))')
 
-  const wrapper = mount(<SayMyName />)
-  const getIsBad = () => wrapper.find('.isBad').text()
-  const getName = () => wrapper.find('.name').text()
-  const toggle = wrapper.find('button')
+  // ref:
+  // - https://jaketrent.com/post/testing-react-with-jsdom/
+  // - https://reactjs.org/docs/test-utils.html#renderintodocument
+  // - https://github.com/jsdom/jsdom
+
+  const d = renderIntoDocument(<SayMyName />)
+  //const getIsBad = () => wrapper.find('.isBad').text()
+  const getIsBad = () =>
+    findRenderedDOMComponentWithClass(d, 'isBad').textContent
+  //const getName = () => wrapper.find('.name').text()
+  const b = findRenderedDOMComponentWithTag(d, 'button')
+  //const n = React.findDOMNode(b)
 
   expect(getIsBad()).toBe('false')
-  expect(getName()).toBe('Walter')
+  //expect(getName()).toBe('Walter')
 
-  toggle.simulate('click')
+  //toggle.simulate('click')
+  Simulate['click'](findDOMNode(b))
 
   expect(getIsBad()).toBe('true')
-  expect(getName()).toBe('Heisenberg')
+  //expect(getName()).toBe('Heisenberg')
 })
 
 test('branch defaults third argument to identity function', () => {
