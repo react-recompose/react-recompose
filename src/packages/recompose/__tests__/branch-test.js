@@ -1,6 +1,9 @@
 import sinon from 'sinon'
 import React from 'react'
 import { mount } from 'enzyme'
+import { getByText } from '@testing-library/dom'
+import { render } from './testing-library-setup'
+import { act } from './utils'
 import { branch, compose, withState, withProps } from '../'
 
 test('branch tests props and applies one of two HoCs, for true and false', () => {
@@ -21,18 +24,17 @@ test('branch tests props and applies one of two HoCs, for true and false', () =>
 
   expect(SayMyName.displayName).toBe('withState(branch(Component))')
 
-  const wrapper = mount(<SayMyName />)
-  const getIsBad = () => wrapper.find('.isBad').text()
-  const getName = () => wrapper.find('.name').text()
-  const toggle = wrapper.find('button')
+  const { container } = render(<SayMyName />)
 
-  expect(getIsBad()).toBe('false')
-  expect(getName()).toBe('Walter')
+  expect(container.querySelector('.isBad').innerHTML).toBe('false')
+  expect(container.querySelector('.name').innerHTML).toBe('Walter')
 
-  toggle.simulate('click')
+  act(() => {
+    getByText(container, 'Toggle').click()
+  })
 
-  expect(getIsBad()).toBe('true')
-  expect(getName()).toBe('Heisenberg')
+  expect(container.querySelector('.isBad').innerHTML).toBe('true')
+  expect(container.querySelector('.name').innerHTML).toBe('Heisenberg')
 })
 
 test('branch defaults third argument to identity function', () => {

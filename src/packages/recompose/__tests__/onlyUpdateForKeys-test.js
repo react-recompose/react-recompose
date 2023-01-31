@@ -1,6 +1,6 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { render } from './testing-library-setup'
 import { actWith } from './utils'
 import { onlyUpdateForKeys, compose, withState } from '../'
 
@@ -18,7 +18,7 @@ test('onlyUpdateForKeys implements shouldComponentUpdate()', () => {
     'withState(withState(onlyUpdateForKeys(component)))'
   )
 
-  mount(<Counter />)
+  render(<Counter />)
   const updateCounter = actWith(component.firstCall.args[0].updateCounter)
   const updateFoobar = actWith(component.firstCall.args[0].updateFoobar)
 
