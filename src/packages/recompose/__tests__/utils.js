@@ -7,8 +7,8 @@ import wrapDisplayName from '../wrapDisplayName'
 export const { act } = process.env.TEST_WITH_PREACT
   ? require('preact/test-utils')
   : process.env.TEST_WITH_REACT_16
-    ? { act: f => f() }
-    : require('react-dom/test-utils')
+  ? { act: f => f() }
+  : require('react-dom/test-utils')
 /* eslint-enable */
 
 export const actWith = f => arg => {
