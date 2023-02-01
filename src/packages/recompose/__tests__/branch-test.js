@@ -1,14 +1,16 @@
 import sinon from 'sinon'
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import { mount } from 'enzyme'
-import {
+import { TestUtils } from './utils'
+import { branch, compose, withState, withProps } from '../'
+
+const {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedDOMComponentWithTag,
   Simulate,
-} from 'react-dom/test-utils'
-import { findDOMNode } from 'react-dom'
-import { branch, compose, withState, withProps } from '../'
+} = TestUtils
 
 test('branch tests props and applies one of two HoCs, for true and false', () => {
   const SayMyName = compose(
@@ -38,21 +40,24 @@ test('branch tests props and applies one of two HoCs, for true and false', () =>
   // - https://github.com/jsdom/jsdom
 
   const d = renderIntoDocument(<SayMyName />)
-  //const getIsBad = () => wrapper.find('.isBad').text()
+  // const getIsBad = () => wrapper.find('.isBad').text()
   const getIsBad = () =>
     findRenderedDOMComponentWithClass(d, 'isBad').textContent
-  //const getName = () => wrapper.find('.name').text()
+  // XXX TODO:
+  // const getName = () => wrapper.find('.name').text()
   const b = findRenderedDOMComponentWithTag(d, 'button')
-  //const n = React.findDOMNode(b)
 
   expect(getIsBad()).toBe('false')
-  //expect(getName()).toBe('Walter')
+  // XXX TODO:
+  // expect(getName()).toBe('Walter')
 
-  //toggle.simulate('click')
+  // XXX TODO FIX LINT:
+  /* eslint-disable-next-line */
   Simulate['click'](findDOMNode(b))
 
   expect(getIsBad()).toBe('true')
-  //expect(getName()).toBe('Heisenberg')
+  // XXX TODO:
+  // expect(getName()).toBe('Heisenberg')
 })
 
 test('branch defaults third argument to identity function', () => {
