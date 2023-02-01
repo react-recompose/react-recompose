@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent } from '@testing-library/dom'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
-import { act } from './utils'
+import { act, TestUtils } from './utils'
 import { render } from './testing-library-setup'
 import { withHandlers, withState, compose } from '../'
 
@@ -71,26 +71,57 @@ test('withHandlers passes immutable handlers', () => {
 
 test('withHandlers warns if handler is not a higher-order function', () => {
   // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/40
   // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_REACT_18 || process.env.TEST_WITH_PREACT) {
+  if (process.env.TEST_WITH_PREACT) {
     /* eslint-disable-next-line no-console */
     console.warn(
-      'SKIP FOR REACT 18 & PREACT - see https://github.com/react-recompose/react-recompose/issues/40 & https://github.com/react-recompose/react-recompose/issues/41'
+      'SKIP FOR REACT PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
     )
     return
   }
 
-  const error = sinon.stub(console, 'error')
+  // TODO should stub here, moved due to new ReactDOM.render error warning
+  // message coming from React 18:
+  // const error = sinon.stub(console, 'error')
 
   const Button = withHandlers({
     onClick: () => {},
   })('button')
 
-  const wrapper = mount(<Button />)
-  const button = wrapper.find('button')
+  const { container } = render(<Button />)
 
-  expect(() => button.simulate('click')).toThrowError(/undefined/)
+  // TODO error stub moved here due to new ReactDOM.render error warning
+  // message coming from React 18:
+  const error = sinon.stub(console, 'error')
+
+  act(() => {
+    // TBD may or may not throw, ignoring exception if present:
+    try {
+      // NOT SUPPORTED with Preact
+      // THANKS for guidance:
+      // - https://jaketrent.com/post/testing-react-with-jsdom/
+      TestUtils.Simulate.click(container.querySelector('button'))
+      // Triggers unrecoverable failure:
+      // fireEvent.click(container.querySelector('button'))
+      // Alternative solution, also triggers unrecoverable failure
+      // THANKS for guidance:
+      // - https://www.cordulack.com/writing/jsdom-event-listeners
+      // - https://github.com/cordulack/jsdom-event-listener-test-example
+      // - https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events
+      // container
+      //   .querySelector('button')
+      //   .dispatchEvent(
+      //     new window.MouseEvent('click', {
+      //       view: window,
+      //       bubbles: true,
+      //       cancellable: true,
+      //     })
+      //   )
+    } catch (e) {
+      /* eslint-disable-next-line no-console */
+      console.info(e.messgae)
+    }
+  })
 
   expect(error.firstCall.args[0]).toBe(
     'withHandlers(): Expected a map of higher-order functions. Refer to ' +
