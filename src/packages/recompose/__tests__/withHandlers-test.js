@@ -1,19 +1,12 @@
 import React from 'react'
+import { fireEvent } from '@testing-library/dom'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { act } from './utils'
+import { render } from './testing-library-setup'
 import { withHandlers, withState, compose } from '../'
 
 test('withHandlers passes handlers to base component', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-next-line no-console */
-    console.warn(
-      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
-    )
-    return
-  }
-
   let submittedFormValue
   const enhanceForm = compose(
     withState('value', 'updateValue', ''),
@@ -37,18 +30,26 @@ test('withHandlers passes handlers to base component', () => {
     </form>
   ))
 
-  const wrapper = mount(<Form />)
-  const input = wrapper.find('input')
-  const output = wrapper.find('p')
-  const form = wrapper.find('form')
+  const { container } = render(<Form />)
 
-  input.simulate('change', { target: { value: 'Yay' } })
-  expect(output.text()).toBe('Yay')
+  act(() => {
+    // with getByRole('textbox') NOT working with Preact
+    // fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Yay' } })
+    fireEvent.input(container.querySelector('input'), {
+      target: { value: 'Yay' },
+    })
+  })
 
-  input.simulate('change', { target: { value: 'Yay!!' } })
-  expect(output.text()).toBe('Yay!!')
+  expect(container.querySelector('p').innerHTML).toBe('Yay')
 
-  form.simulate('submit')
+  act(() => {
+    fireEvent.input(container.querySelector('input'), {
+      target: { value: 'Yay!!' },
+    })
+  })
+  expect(container.querySelector('p').innerHTML).toBe('Yay!!')
+
+  fireEvent.submit(container.querySelector('form'))
   expect(submittedFormValue).toBe('Yay!!')
 })
 
