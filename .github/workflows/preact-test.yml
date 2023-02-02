@@ -28,5 +28,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - run: yarn add --dev react@npm:@preact/compat react-dom@npm:@preact/compat enzyme-adapter-react-16@npm:enzyme-adapter-preact-pure preact@latest
+    - run: yarn add --dev preact react@npm:@preact/compat react-dom@npm:@preact/compat @testing-library/preact@latest enzyme-adapter-react-16@npm:enzyme-adapter-preact-pure
     - run: npx cross-env TEST_WITH_PREACT=1 jest

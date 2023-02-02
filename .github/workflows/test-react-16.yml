@@ -33,4 +33,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn
     - run: yarn add --dev react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} enzyme-adapter-react-16@latest
-    - run: npx cross-env TEST_WITH_REACT_16=1 jest
+    - run: npx jest

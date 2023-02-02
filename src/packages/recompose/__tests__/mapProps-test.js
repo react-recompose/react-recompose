@@ -1,6 +1,6 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { render } from './testing-library-setup'
 import { actWith } from './utils'
 import { mapProps, withState, compose } from '../'
 
@@ -18,7 +18,7 @@ test('mapProps maps owner props to child props', () => {
 
   expect(StringConcat.displayName).toBe('withState(mapProps(component))')
 
-  mount(<StringConcat />)
+  render(<StringConcat />)
   const updateStrings = actWith(component.firstCall.args[0].updateStrings)
   updateStrings(strings => [...strings, 'fa'])
 

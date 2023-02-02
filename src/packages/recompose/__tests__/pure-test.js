@@ -1,6 +1,6 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { render } from './testing-library-setup'
 import { actWith, countRenders } from './utils'
 import { pure, compose, withState } from '../'
 
@@ -17,13 +17,14 @@ test('pure implements shouldComponentUpdate() using shallowEqual()', () => {
 
   expect(Todos.displayName).toBe('withState(pure(countRenders(component)))')
 
-  mount(<Todos />)
+  render(<Todos />)
+
   const updateTodos = actWith(component.firstCall.args[0].updateTodos)
 
   expect(component.lastCall.args[0].todos).toBe(initialTodos)
   expect(component.lastCall.args[0].renderCount).toBe(1)
 
-  // should not re-render
+  // should not trigger re-render
   updateTodos(initialTodos)
   expect(component.calledOnce).toBe(true)
 
