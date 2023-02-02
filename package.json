@@ -58,7 +58,7 @@
     "@rollup/plugin-replace": "^4.0.0",
     "@testing-library/dom": "^7.31.2",
     "@testing-library/jest-dom": "4",
-    "@testing-library/react": "^12.1.5",
+    "@testing-library/react": "11",
     "baconjs": "^1.0.1",
     "chalk": "^1.1.1",
     "change-case": "^2.3.1",
