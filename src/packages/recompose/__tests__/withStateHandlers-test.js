@@ -1,28 +1,34 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { render } from './testing-library-setup'
 import sinon from 'sinon'
 
-import { actWith } from './utils'
+import { act, actWith } from './utils'
 
 import { compose, withStateHandlers } from '../'
 
 test('withStateHandlers should persist events passed as argument', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-next-line no-console */
-    console.warn(
-      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
-    )
-    return
-  }
+  //if (process.env.TEST_WITH_PREACT) {
+  //  /* eslint-disable-next-line no-console */
+  //  console.warn(
+  //    'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+  //  )
+  //  return
+  //}
 
-  const component = ({ value, onChange }) => (
+  let oc
+
+  const component = ({ value, onChange }) => {
+    oc = onChange
+	  return (
     <div>
       <input type="text" value={value} onChange={onChange} />
       <p>{value}</p>
     </div>
-  )
+	  )
+  }
 
   const InputComponent = withStateHandlers(
     { value: '' },
@@ -34,6 +40,15 @@ test('withStateHandlers should persist events passed as argument', () => {
   )(component)
 
   const wrapper = mount(<InputComponent />)
+	act(() => {
+  //oc({ target: { value: 'xxx' } })
+  oc({
+    persist() {
+      this.target = { value: 'yyy' }
+    }
+	})
+	})
+  expect(wrapper.find('p').text()).toBe('--')
   const input = wrapper.find('input')
   const output = wrapper.find('p')
   // having that enzyme simulate does not simulate real situation
@@ -102,13 +117,13 @@ test('withStateHandlers accepts initialState as function of props', () => {
 test('withStateHandlers initial state must be function or object or null or undefined', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-next-line no-console */
-    console.warn(
-      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
-    )
-    return
-  }
+  //if (process.env.TEST_WITH_PREACT) {
+  //  /* eslint-disable-next-line no-console */
+  //  console.warn(
+  //    'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+  //  )
+  //  return
+  //}
 
   const component = sinon.spy(() => null)
   component.displayName = 'component'
@@ -117,8 +132,10 @@ test('withStateHandlers initial state must be function or object or null or unde
   // React throws an error
   // expect(() => mount(<Counter />)).toThrow()
   const error = sinon.stub(console, 'error')
-  mount(<Counter />)
+  render(<Counter />)
   expect(error.called).toBe(true)
+  //expect(error.lastCall.args[0]).toBe('--')
+  expect(error.firstCall.args[0]).toBe('--')
 })
 
 test('withStateHandlers have access to props', () => {
