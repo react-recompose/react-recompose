@@ -1,29 +1,28 @@
 import React from 'react'
-import { fireEvent } from '@testing-library/dom'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 
-import { act, actWith } from './utils'
-import { render } from './testing-library-setup'
+import { actWith } from './utils'
 
 import { compose, withStateHandlers } from '../'
 
-// NOTE: This persist events feature seems to be no longer needed
-// with some newer React versions, perhaps should be removed in the future
 test('withStateHandlers should persist events passed as argument', () => {
-  const contents = ({ value, onChange }) => (
+  // TODO ref:
+  // - https://github.com/react-recompose/react-recompose/issues/41
+  if (process.env.TEST_WITH_PREACT) {
+    /* eslint-disable-next-line no-console */
+    console.warn(
+      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
+    )
+    return
+  }
+
+  const component = ({ value, onChange }) => (
     <div>
       <input type="text" value={value} onChange={onChange} />
       <p>{value}</p>
     </div>
   )
-
-  // ugly hacky workaround solution:
-  let trigger
-  const component = props => {
-    trigger = actWith(props.onChange)
-    return contents(props)
-  }
 
   const InputComponent = withStateHandlers(
     { value: '' },
@@ -34,24 +33,20 @@ test('withStateHandlers should persist events passed as argument', () => {
     }
   )(component)
 
-  const { container } = render(<InputComponent />)
-
-  // having this onChange trigger call *may* not simulate the real situation
+  const wrapper = mount(<InputComponent />)
+  const input = wrapper.find('input')
+  const output = wrapper.find('p')
+  // having that enzyme simulate does not simulate real situation
   // emulate persist
-  trigger({
+  input.simulate('change', {
     persist() {
       this.target = { value: 'Yay' }
     },
   })
+  expect(output.text()).toBe('Yay')
 
-  expect(container.querySelector('p').innerHTML).toBe('Yay')
-
-  act(() => {
-    fireEvent.input(container.querySelector('input'), {
-      target: { value: 'empty' },
-    })
-  })
-  expect(container.querySelector('p').innerHTML).toBe('empty')
+  input.simulate('change', { target: { value: 'empty' } })
+  expect(output.text()).toBe('empty')
 })
 
 test('withStateHandlers adds a stateful value and a function for updating it', () => {
