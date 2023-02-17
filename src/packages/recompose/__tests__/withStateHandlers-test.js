@@ -1,5 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { render } from './testing-library-setup'
 import sinon from 'sinon'
 
 import { actWith } from './utils'
@@ -117,8 +118,9 @@ test('withStateHandlers initial state must be function or object or null or unde
   // React throws an error
   // expect(() => mount(<Counter />)).toThrow()
   const error = sinon.stub(console, 'error')
-  mount(<Counter />)
+  render(<Counter />)
   expect(error.called).toBe(true)
+  expect(error.firstCall.args[0]).toMatch(/state.*must.*object.or.null/)
 })
 
 test('withStateHandlers have access to props', () => {
