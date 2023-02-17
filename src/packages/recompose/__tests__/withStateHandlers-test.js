@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { render } from './testing-library-setup'
 import sinon from 'sinon'
+import { render } from './testing-library-setup'
 
 import { actWith } from './utils'
 
@@ -100,6 +100,9 @@ test('withStateHandlers accepts initialState as function of props', () => {
   expect(component.lastCall.args[0].counter).toBe(initialCounter)
 })
 
+// NOTE: It looks like react-recompose does nothing special in this case,
+// just that React (not Preact) will log an error in this case.
+// FOR FUTURE CONSIDERATION if ract-recompose should explicitly check this?
 test('withStateHandlers initial state must be function or object or null or undefined', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
