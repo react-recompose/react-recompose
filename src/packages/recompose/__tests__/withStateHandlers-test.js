@@ -118,8 +118,8 @@ test('withStateHandlers initial state must be function or object or null or unde
   component.displayName = 'component'
 
   const Counter = withStateHandlers(1, {})(component)
-  // React throws an error
-  // expect(() => mount(<Counter />)).toThrow()
+  // stack with React or Preact should log appropriate error message
+  // in the end:
   const error = sinon.stub(console, 'error')
   render(<Counter />)
   expect(error.called).toBe(true)
