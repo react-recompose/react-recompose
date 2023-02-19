@@ -12,19 +12,12 @@ import { compose, withStateHandlers } from '../'
 // NOTE: This persist events feature seems to be no longer needed
 // with some newer React versions, perhaps should be removed in the future
 test('withStateHandlers should persist events passed as argument', () => {
-  const contents = ({ value, onChange }) => (
+  const component = sinon.spy(({ value, onChange }) => (
     <div>
       <input type="text" value={value} onChange={onChange} />
       <p>{value}</p>
     </div>
-  )
-
-  // ugly hacky workaround solution:
-  let triggerChange
-  const component = props => {
-    triggerChange = actWith(props.onChange)
-    return contents(props)
-  }
+  ))
 
   const InputComponent = withStateHandlers(
     { value: '' },
@@ -37,6 +30,8 @@ test('withStateHandlers should persist events passed as argument', () => {
 
   const { container } = render(<InputComponent />)
 
+  const triggerChange = actWith(component.firstCall.args[0].onChange)
+
   // having this onChange triggerChange call *may* not simulate real situation
   // emulate persist
   triggerChange({
@@ -47,7 +42,7 @@ test('withStateHandlers should persist events passed as argument', () => {
 
   expect(container.querySelector('p').innerHTML).toBe('Yay')
 
-  // TODO this does not seem to work with React 16 and some build tests:
+  // TODO this does not seem to work with React 16 etc.
   // act(() => {
   //   fireEvent.input(container.querySelector('input'), {
   //     target: { value: 'empty' },
