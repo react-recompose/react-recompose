@@ -1,8 +1,8 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
-import { render } from './testing-library-setup'
 
+import { render } from './testing-library-setup'
 import { actWith } from './utils'
 
 import { compose, withStateHandlers } from '../'
