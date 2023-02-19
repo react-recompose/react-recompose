@@ -1,18 +1,10 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import stripAnsi from 'strip-ansi'
+import { render, prettyDOM } from './testing-library-setup'
+
 import { nest, setDisplayName, toClass } from '../'
 
 test('nest nests components from outer to inner', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-next-line no-console */
-    console.warn(
-      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
-    )
-    return
-  }
-
   const A = setDisplayName('A')(toClass('div'))
   const B = setDisplayName('B')(toClass('div'))
   const C = setDisplayName('C')(toClass('div'))
@@ -21,15 +13,35 @@ test('nest nests components from outer to inner', () => {
 
   expect(Nest.displayName).toBe('nest(A, B, C)')
 
-  const wrapper = shallow(<Nest pass="through">Child</Nest>)
+  const { container } = render(<Nest pass="through">Child</Nest>)
 
-  expect(
-    wrapper.equals(
-      <A pass="through">
-        <B pass="through">
-          <C pass="through">Child</C>
-        </B>
-      </A>
-    )
-  ).toBe(true)
+  expect(stripAnsi(prettyDOM(container))).toMatchInlineSnapshot(`
+    "<div>
+      <div
+        pass="through"
+      >
+        <div
+          pass="through"
+        >
+          <div
+            pass="through"
+          >
+            Child
+          </div>
+        </div>
+      </div>
+    </div>"
+  `)
+
+  // FUTURE consideration:
+  // cleaner testing like before:
+  // expect(
+  //   wrapper.equals(
+  //     <A pass="through">
+  //       <B pass="through">
+  //         <C pass="through">Child</C>
+  //       </B>
+  //     </A>
+  //   )
+  // ).toBe(true)
 })

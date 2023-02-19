@@ -9,7 +9,7 @@ import type { HOC } from '../..'
 type EnhancedCompProps = { a: number }
 
 // $FlowFixMe[missing-local-annot]
-const A = ({ a, b }) =>
+const A = ({ a, b }) => (
   <div>
     {a}
     {(b: string)}
@@ -22,6 +22,7 @@ const A = ({ a, b }) =>
       (b: number)
     }
   </div>
+)
 
 A.displayName = 'HELLO WORLD'
 

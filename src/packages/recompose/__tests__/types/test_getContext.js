@@ -13,7 +13,7 @@ const PropTypes = {
 type EnhancedCompProps = { eA: 1 }
 
 // $FlowFixMe[missing-local-annot]
-const Comp = ({ eA }) =>
+const Comp = ({ eA }) => (
   <div>
     {(eA: number)}
     {
@@ -21,6 +21,7 @@ const Comp = ({ eA }) =>
       (eA: string)
     }
   </div>
+)
 
 const enhacer: HOC<*, EnhancedCompProps> = compose(
   getContext({

@@ -5,7 +5,7 @@
 # - .github/workflows/test-react-16.yml
 # - https://github.com/actions/starter-workflows/blob/b2e786d4e9af21f57ab07c1bc7231ed867f7675f/ci/node.js.yml
 
-name: React 18 - skip test see issue 40
+name: React 18
 
 on:
   - push
@@ -28,5 +28,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
-    - run: yarn add --dev react@18 react-dom@18 enzyme-adapter-react-16@npm:@cfaester/enzyme-adapter-react-18
-    - run: npx cross-env TEST_WITH_REACT_18=1 jest
+    - run: yarn add --dev react@18 react-dom@18 @testing-library/react@latest enzyme-adapter-react-16@npm:@cfaester/enzyme-adapter-react-18
+    - run: npx jest

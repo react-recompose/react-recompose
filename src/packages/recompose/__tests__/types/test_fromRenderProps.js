@@ -15,7 +15,7 @@ const RenderPropsComponent3 = ({ children }) =>
 type EnhancedCompProps = {||}
 
 // $FlowFixMe[missing-local-annot]
-const Comp = ({ i18n, theme, data }) =>
+const Comp = ({ i18n, theme, data }) => (
   <div>
     {i18n}
     {theme}
@@ -33,6 +33,7 @@ const Comp = ({ i18n, theme, data }) =>
       (data: number)
     }
   </div>
+)
 
 const enhancer: HOC<*, EnhancedCompProps> = compose(
   fromRenderProps(RenderPropsComponent1, props => ({

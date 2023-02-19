@@ -1,14 +1,15 @@
 import React from 'react'
+import { act } from './testing-library-setup'
 import setDisplayName from '../setDisplayName'
 import wrapDisplayName from '../wrapDisplayName'
 
+export { act }
+
 /* using require here to support Preact vs React */
 /* eslint-disable */
-export const { act } = process.env.TEST_WITH_PREACT
+export const TestUtils = process.env.TEST_WITH_PREACT
   ? require('preact/test-utils')
-  : process.env.TEST_WITH_REACT_16
-    ? { act: f => f() }
-    : require('react-dom/test-utils')
+  : require('react-dom/test-utils')
 /* eslint-enable */
 
 export const actWith = f => arg => {

@@ -13,7 +13,7 @@ function mapProps<BaseProps: {}, EnhancedProps>(
 type EnhancedProps = { hello: string }
 
 // $FlowFixMe[missing-local-annot]
-const baseComponent = ({ hello, len }) =>
+const baseComponent = ({ hello, len }) => (
   <div>
     {(hello: string)}
 
@@ -29,6 +29,7 @@ const baseComponent = ({ hello, len }) =>
       (len: string)
     }
   </div>
+)
 
 const enhancer: HOC<*, EnhancedProps> = compose(
   mapProps(({ hello }) => ({

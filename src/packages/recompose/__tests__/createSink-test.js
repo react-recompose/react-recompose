@@ -1,6 +1,6 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { render } from './testing-library-setup'
 import { actWith } from './utils'
 import { createSink, compose, withState, mapProps } from '../'
 
@@ -15,7 +15,7 @@ test('createSink creates a React component that fires a callback when receiving 
     }))
   )(Sink)
 
-  mount(
+  render(
     <div>
       <Counter />
     </div>

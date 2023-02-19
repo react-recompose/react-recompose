@@ -1,29 +1,23 @@
 import React from 'react'
+// import { fireEvent } from '@testing-library/dom'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 
+// import { act, actWith } from './utils'
 import { actWith } from './utils'
+import { render } from './testing-library-setup'
 
 import { compose, withStateHandlers } from '../'
 
+// NOTE: This persist events feature seems to be no longer needed
+// with some newer React versions, perhaps should be removed in the future
 test('withStateHandlers should persist events passed as argument', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-next-line no-console */
-    console.warn(
-      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
-    )
-    return
-  }
-
-  const component = ({ value, onChange }) =>
+  const component = sinon.spy(({ value, onChange }) => (
     <div>
       <input type="text" value={value} onChange={onChange} />
-      <p>
-        {value}
-      </p>
+      <p>{value}</p>
     </div>
+  ))
 
   const InputComponent = withStateHandlers(
     { value: '' },
@@ -34,20 +28,30 @@ test('withStateHandlers should persist events passed as argument', () => {
     }
   )(component)
 
-  const wrapper = mount(<InputComponent />)
-  const input = wrapper.find('input')
-  const output = wrapper.find('p')
-  // having that enzyme simulate does not simulate real situation
+  const { container } = render(<InputComponent />)
+
+  const triggerChange = actWith(component.firstCall.args[0].onChange)
+
+  // having this onChange triggerChange call *may* not simulate real situation
   // emulate persist
-  input.simulate('change', {
+  triggerChange({
     persist() {
       this.target = { value: 'Yay' }
     },
   })
-  expect(output.text()).toBe('Yay')
 
-  input.simulate('change', { target: { value: 'empty' } })
-  expect(output.text()).toBe('empty')
+  expect(container.querySelector('p').innerHTML).toBe('Yay')
+
+  // TODO this does not seem to work with React 16 etc.
+  // act(() => {
+  //   fireEvent.input(container.querySelector('input'), {
+  //     target: { value: 'empty' },
+  //   })
+  // })
+  triggerChange({
+    target: { value: 'empty' },
+  })
+  expect(container.querySelector('p').innerHTML).toBe('empty')
 })
 
 test('withStateHandlers adds a stateful value and a function for updating it', () => {
@@ -100,6 +104,9 @@ test('withStateHandlers accepts initialState as function of props', () => {
   expect(component.lastCall.args[0].counter).toBe(initialCounter)
 })
 
+// NOTE: It looks like react-recompose does nothing special in this case,
+// just that React (not Preact) will log an error in this case.
+// FOR FUTURE CONSIDERATION if ract-recompose should explicitly check this?
 test('withStateHandlers initial state must be function or object or null or undefined', () => {
   // TODO ref:
   // - https://github.com/react-recompose/react-recompose/issues/41
@@ -115,11 +122,12 @@ test('withStateHandlers initial state must be function or object or null or unde
   component.displayName = 'component'
 
   const Counter = withStateHandlers(1, {})(component)
-  // React throws an error
-  // expect(() => mount(<Counter />)).toThrow()
+  // stack with React or Preact should log appropriate error message
+  // in the end:
   const error = sinon.stub(console, 'error')
-  mount(<Counter />)
+  render(<Counter />)
   expect(error.called).toBe(true)
+  expect(error.firstCall.args[0]).toMatch(/state.*must.*object.or.null/)
 })
 
 test('withStateHandlers have access to props', () => {
