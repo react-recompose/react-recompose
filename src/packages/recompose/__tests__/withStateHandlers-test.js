@@ -1,9 +1,10 @@
 import React from 'react'
-import { fireEvent } from '@testing-library/dom'
+// import { fireEvent } from '@testing-library/dom'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 
-import { act, actWith } from './utils'
+// import { act, actWith } from './utils'
+import { actWith } from './utils'
 import { render } from './testing-library-setup'
 
 import { compose, withStateHandlers } from '../'
