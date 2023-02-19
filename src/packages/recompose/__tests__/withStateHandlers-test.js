@@ -1,29 +1,29 @@
 import React from 'react'
+import { fireEvent } from '@testing-library/dom'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 
+import { act, actWith } from './utils'
 import { render } from './testing-library-setup'
-import { actWith } from './utils'
 
 import { compose, withStateHandlers } from '../'
 
+// NOTE: This persist events feature seems to be no longer needed
+// with some newer React versions, perhaps should be removed in the future
 test('withStateHandlers should persist events passed as argument', () => {
-  // TODO ref:
-  // - https://github.com/react-recompose/react-recompose/issues/41
-  if (process.env.TEST_WITH_PREACT) {
-    /* eslint-disable-next-line no-console */
-    console.warn(
-      'SKIP FOR PREACT - see https://github.com/react-recompose/react-recompose/issues/41'
-    )
-    return
-  }
-
-  const component = ({ value, onChange }) => (
+  const contents = ({ value, onChange }) => (
     <div>
       <input type="text" value={value} onChange={onChange} />
       <p>{value}</p>
     </div>
   )
+
+  // ugly hacky workaround solution:
+  let triggerChange
+  const component = props => {
+    triggerChange = actWith(props.onChange)
+    return contents(props)
+  }
 
   const InputComponent = withStateHandlers(
     { value: '' },
@@ -34,20 +34,28 @@ test('withStateHandlers should persist events passed as argument', () => {
     }
   )(component)
 
-  const wrapper = mount(<InputComponent />)
-  const input = wrapper.find('input')
-  const output = wrapper.find('p')
-  // having that enzyme simulate does not simulate real situation
+  const { container } = render(<InputComponent />)
+
+  // having this onChange triggerChange call *may* not simulate real situation
   // emulate persist
-  input.simulate('change', {
+  triggerChange({
     persist() {
       this.target = { value: 'Yay' }
     },
   })
-  expect(output.text()).toBe('Yay')
 
-  input.simulate('change', { target: { value: 'empty' } })
-  expect(output.text()).toBe('empty')
+  expect(container.querySelector('p').innerHTML).toBe('Yay')
+
+  // TODO this does not seem to work with React 16 and some build tests:
+  // act(() => {
+  //   fireEvent.input(container.querySelector('input'), {
+  //     target: { value: 'empty' },
+  //   })
+  // })
+  triggerChange({
+    target: { value: 'empty' },
+  })
+  expect(container.querySelector('p').innerHTML).toBe('empty')
 })
 
 test('withStateHandlers adds a stateful value and a function for updating it', () => {
