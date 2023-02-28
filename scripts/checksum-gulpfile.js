@@ -1,11 +1,12 @@
 const { src, dest } = require('gulp')
 const concat = require('gulp-concat')
 const fileChecksum = require('gulp-file-checksum')
+const { series } = require('bach')
 
 const checksumTemplate = `{sha512}
 `
 
-exports.default = () =>
+const checksumStage = () =>
   src('../lib/packages/recompose/**/*.js')
     .pipe(
       concat(
@@ -21,3 +22,15 @@ exports.default = () =>
       })
     )
     .pipe(dest('..'))
+
+exports.default = series(
+  done => {
+    console.log('starting')
+    done()
+  },
+  checksumStage,
+  done => {
+    console.log('done')
+    done()
+  }
+)

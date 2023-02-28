@@ -56,6 +56,7 @@
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
+    "bach": "^2.0.1",
     "baconjs": "^1.0.1",
     "chalk": "^1.1.1",
     "change-case": "^2.3.1",
