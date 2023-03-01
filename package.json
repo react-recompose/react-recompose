@@ -58,7 +58,7 @@
     "@rollup/plugin-replace": "^5.0.2",
     "baconjs": "^1.0.1",
     "chalk": "^4.1.2",
-    "change-case": "^2.3.1",
+    "change-case": "^4.1.2",
     "create-react-class": "^15.7.0",
     "cross-env": "^4.0.0",
     "enzyme": "^3.11.0",
