@@ -94,9 +94,5 @@
     "sinon": "^1.17.1",
     "xstream": "^5.0.5"
   },
-  "devEngines": {
-    "node": "5.x",
-    "npm": "3.x"
-  },
   "dependencies": {}
 }
