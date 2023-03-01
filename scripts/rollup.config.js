@@ -4,7 +4,7 @@ import { babel } from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
 import { uglify } from 'rollup-plugin-uglify'
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
+import { sizeSnapshot } from '@brodybits/rollup-plugin-size-snapshot'
 import { pascalCase } from 'change-case'
 
 const { PACKAGES_SRC_DIR, PACKAGES_OUT_DIR } = require('./getPackageNames')
