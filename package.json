@@ -11,7 +11,7 @@
     "build:recompose": "npm run build:recompose:modules && npm run build:recompose:rollup && npm run build:recompose:checksum",
     "build:recompose:modules": "cross-env NODE_ENV=cjs babel ./src/packages/recompose --out-dir ./lib/packages/recompose --ignore='**/__tests__/**,**/node_modules/**'",
     "build:recompose:rollup": "cross-env PACKAGE_NAME=recompose rollup --bundleConfigAsCjs --config scripts/rollup.config.js",
-    "build:recompose:checksum": "gulp -f scripts/checksum-gulpfile.js",
+    "build:recompose:checksum": "cd scripts && node -e 'require(\"./checksum-gulpfile.js\").default()'",
     "test": "jest && flow check && cross-env SNAPSHOT=match npm run build:recompose",
     "test:watch": "cross-env BABEL_ENV=cjs jest --watch",
     "release": "node scripts/release.js",
