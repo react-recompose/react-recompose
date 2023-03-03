@@ -1,3 +1,9 @@
+## react-recompose v0.33.0
+
+- add React 18 to peerDependencies
+- minimum React version 16.2
+- update @babel/runtime -> ^7.21.0
+
 ## react-recompose v0.32.0
 
 - fix: remove unsound function type union from Handlers generic default ref:
