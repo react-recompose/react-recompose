@@ -27,7 +27,6 @@
     "no-return-assign": [0],
     "max-len": ["error", { "code": 120, "ignorePattern": "^test", "ignoreUrls": true }],
     "lines-between-class-members": [0],
-    "import/no-unresolved": [0],
     "import/no-extraneous-dependencies": [0],
     "import/extensions": [0],
     "import/prefer-default-export": [0],
