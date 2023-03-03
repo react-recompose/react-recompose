@@ -57,6 +57,14 @@ then for TypeScript users:
 
 or try out [`suguru03/recomposer`](https://github.com/suguru03/recomposer).
 
+#### with Preact 10
+
+need to alias like this:
+
+    yarn add react@npm:@preact/compat react-dom@npm:@preact/compat
+
+Some tests are skipped for Preact, see [react-recompose#41](https://github.com/react-recompose/react-recompose/issues/41)
+
 ### Related modules
 
 **no longer supported:**
