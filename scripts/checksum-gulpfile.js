@@ -1,4 +1,4 @@
-const { src, dest } = require('gulp')
+const { src, dest } = require('vinyl-fs')
 const concat = require('gulp-concat')
 const fileChecksum = require('gulp-file-checksum')
 

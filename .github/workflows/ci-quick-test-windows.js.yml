@@ -28,5 +28,5 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn
+    - run: yarn --network-timeout 9000000
     - run: npx jest
